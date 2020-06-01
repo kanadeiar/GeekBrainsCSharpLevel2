@@ -8,6 +8,9 @@ using System.Windows.Forms;
 
 namespace WindowsApp1Asteroids
 {
+    /// <summary>
+    /// Меню-заставка игры
+    /// </summary>
     class SplashScreen
     {
         private static Form myForm;

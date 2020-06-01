@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace WindowsApp1Asteroids.Objects
 {
+    /// <summary>
+    /// Базовая фигура пространства
+    /// </summary>
     class BaseObject
     {
         protected Point pos;
