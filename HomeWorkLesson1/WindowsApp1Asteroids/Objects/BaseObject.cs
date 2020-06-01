@@ -15,16 +15,15 @@ namespace WindowsApp1Asteroids.Objects
         protected Point pos;
         protected Point dir;
         protected Size size;
-        public BaseObject(Point pos, Point dir, Size size)
+        protected BaseObject(Point pos, Point dir, Size size)
         {
             this.pos = pos;
             this.dir = dir;
             this.size = size;
         }
-        public virtual void Draw(Graphics g)
-        {
-            g.DrawRectangle(Pens.White, new Rectangle(pos,size));
-        }
+        /// <summary>
+        /// Обновление объекта - заглушки
+        /// </summary>
         public virtual void Update()
         {
             pos.X += dir.X;
@@ -33,6 +32,13 @@ namespace WindowsApp1Asteroids.Objects
             if (pos.X + size.Width > Game.Width) dir.X = -dir.X;
             if (pos.Y < 0) dir.Y = -dir.Y;
             if (pos.Y + size.Height > Game.Height) dir.Y = -dir.Y;
+        }
+        /// <summary>
+        /// Отрисовка объекта - заглушки
+        /// </summary>
+        public virtual void Draw(Graphics g)
+        {
+            g.DrawRectangle(Pens.White, new Rectangle(pos,size));
         }
     }
 }
