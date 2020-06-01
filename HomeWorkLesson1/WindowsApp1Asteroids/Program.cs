@@ -9,6 +9,13 @@ namespace WindowsApp1Asteroids
 {
     class Program
     {
+        /// <summary>
+        /// Задача 1.
+        /// 1. Добавить свои объекты в иерархию объектов, чтобы получился красивый задний фон,
+        /// похожий на полет в звездном пространстве.
+        /// 2. * Заменить кружочки картинками, используя метод DrawImage.
+        /// Рассахатский Андрей
+        /// </summary>
         static void Main(string[] args)
         {
             Form form = new Form
@@ -18,9 +25,6 @@ namespace WindowsApp1Asteroids
                 Text = "Geekbrains C# Уровень 2. Задачи № 1 и 2. Доработка игры \"Астероиды\"",
                 StartPosition = FormStartPosition.CenterScreen,
             };
-            //Game.Init(form);
-            //form.Show();
-            //Game.Draw();
             SplashScreen.Init(form);
             Application.Run(form);
         }
