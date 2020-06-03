@@ -28,9 +28,12 @@ namespace WindowsApp2Asteroids.Objects
         /// <summary> Количество разновидностей астероидов </summary>
         public static int CountImages => astImages.Length;
         private int currImage;
-        public Asteroid(Point pos, Point dir, Size size, int currImage) : base(pos, dir, size)
+        private float angle;
+        private float angledir;
+        public Asteroid(Point pos, Point dir, Size size, int currImage, float angledir) : base(pos, dir, size)
         {
             this.currImage = currImage;
+            this.angledir = angledir;
         }
         /// <summary> Обновление астероида </summary>
         public override void Update()
@@ -48,7 +51,9 @@ namespace WindowsApp2Asteroids.Objects
         /// <param name="g">Графическое полотно</param>
         public override void Draw(Graphics g)
         {
-            g.DrawImage(astImages[currImage], new Rectangle(pos, size));
+            Image image = Tools.RotateBitmap(astImages[currImage], new PointF(50, 50), angle);
+            angle += angledir;
+            g.DrawImage(image, new Rectangle(pos, size));
         }
     }
 }

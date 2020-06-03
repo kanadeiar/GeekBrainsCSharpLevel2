@@ -16,6 +16,9 @@ namespace WindowsApp2Asteroids
     {
         private static BufferedGraphicsContext context;
         private static BufferedGraphics buffer;
+        /// <summary> Фоновое изображение космоса </summary>
+        private static Image space;
+        private static float movex;
         /// <summary> Звезды на фоне </summary>
         private static BaseObject[] fonStars;
         /// <summary> Астероиды </summary>
@@ -43,6 +46,7 @@ namespace WindowsApp2Asteroids
                 Draw();
             };
             timer.Start();
+            space = Image.FromFile(@"Images\Space.jpg");
         }
         /// <summary> загрузка элементов в начальном состоянии </summary>
         private static void load()
@@ -57,15 +61,15 @@ namespace WindowsApp2Asteroids
                 {
                     case int k when k < 150:
                         randSize = Rand.Next(3, 6);
-                        speed = randSize / 3;
+                        speed = 1;
                         break;
                     case int k when k < 180:
                         randSize = Rand.Next(9, 12);
-                        speed = randSize / 3;
+                        speed = 2;
                         break;
                     default:
                         randSize = Rand.Next(15, 20);
-                        speed = randSize / 3;
+                        speed = 3;
                         break;
                 }
                 fonStars[i] = new Star(new Point(Rand.Next(Width - randSize), Rand.Next(Height - randSize)), new Point(-speed,0), new Size(randSize,randSize));
@@ -73,7 +77,7 @@ namespace WindowsApp2Asteroids
             asteroids = new BaseObject[8];
             for (int i = 0; i < asteroids.Length; i++)
             {
-                asteroids[i] = new Asteroid(new Point(Width + Rand.Next(Width), Rand.Next(Height - 30)), new Point(-6, 0), new Size(40, 40), Rand.Next(Asteroid.CountImages));
+                asteroids[i] = new Asteroid(new Point(Width + Rand.Next(Width), Rand.Next(Height - 30)), new Point(-5, 0), new Size(40, 40), Rand.Next(Asteroid.CountImages), Rand.Next(-8,8));
             }
         }
         /// <summary> обновление всех элементов </summary>
@@ -87,12 +91,21 @@ namespace WindowsApp2Asteroids
         /// <summary> Отрисовка всех элементов в окне </summary>
         public static void Draw()
         {
-            buffer.Graphics.Clear(Color.Black);
+            DrawFon();
             foreach (var star in fonStars)
                 star.Draw(buffer.Graphics);
             foreach (var asteroid in asteroids)
                 asteroid.Draw(buffer.Graphics);
             buffer.Render();
+        }
+        /// <summary> Отрисовка заднего фона </summary>
+        private static void DrawFon()
+        {
+            buffer.Graphics.DrawImage(space, 0 - movex, 0);
+            buffer.Graphics.DrawImage(space, space.Width - movex, 0);
+            movex += 0.2F;
+            if (movex > 1000.0F)
+                movex = 0.0F;
         }
     }
 }
