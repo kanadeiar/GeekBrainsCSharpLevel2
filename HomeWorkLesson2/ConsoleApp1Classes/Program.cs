@@ -38,7 +38,7 @@ namespace ConsoleApp1Classes
             Array.Sort(workers);
             Factory myFactory = new Factory(workers, "Новая фабрика");
             //вывод результата:
-            Console.WriteLine($"Список сотрудников фабрики \"{myFactory.Name}\", отсортированный по фамилиям работников:");
+            Console.WriteLine($"Список всех сотрудников фабрики \"{myFactory.Name}\", отсортированный по фамилиям работников:");
             foreach (var m in myFactory)
             {
                 if (m is BaseWorker b)
