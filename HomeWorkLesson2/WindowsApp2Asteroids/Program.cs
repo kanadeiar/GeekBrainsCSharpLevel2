@@ -29,7 +29,7 @@ namespace WindowsApp2Asteroids
                 Text = "Geekbrains C# Уровень 2. Методичка 2. Задачи № 2, 3, 4 и 5. Доработка игры \"Астероиды\"",
                 StartPosition = FormStartPosition.CenterScreen,
             };
-
+            SplashScreen.Init(form);
             Application.Run(form);
         }
     }
