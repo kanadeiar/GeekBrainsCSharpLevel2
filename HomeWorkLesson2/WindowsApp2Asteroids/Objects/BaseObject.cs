@@ -18,6 +18,9 @@ namespace WindowsApp2Asteroids.Objects
         public Rectangle Rect => new Rectangle(pos, size);
         protected BaseObject(Point pos, Point dir, Size size)
         {
+            if (pos.X>9000 || pos.X<0 || pos.Y>9000 || pos.Y<0) throw new Exceptions.GameObjectException("Неверная позиция объекта","pos");
+            if (dir.X>9000 || dir.X<-9000 || dir.Y>9000 || dir.Y<-9000) throw new Exceptions.GameObjectException("Неверная скорость движения","dir");
+            if (size.Width>9000 || size.Width<1 || size.Height>9000 || size.Height<1) throw new Exceptions.GameObjectException("Неверные размеры объекта","size");
             this.pos = pos;
             this.dir = dir;
             this.size = size;
