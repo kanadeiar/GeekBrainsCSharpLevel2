@@ -16,15 +16,29 @@ namespace WindowsApp2Asteroids
     {
         private static BufferedGraphicsContext context;
         private static BufferedGraphics buffer;
-        /// <summary> Фоновое изображение космоса </summary>
-        private static Image space;
-        private static float movex;
-        /// <summary> Звезды на фоне </summary>
-        private static BaseObject[] fonStars;
-        /// <summary> Астероиды </summary>
-        private static BaseObject[] asteroids;
-        public static int Width { get; set; }
-        public static int Height { get; set; }
+        private static int width;
+        public static int Width
+        {
+            get => width;
+            private set
+            {
+                if (value > 1100 || value < 300) 
+                    throw new ArgumentOutOfRangeException("Ширина окна должна быть от 300 до 1100");
+                width = value;
+            }
+        }
+        private static int height;
+        public static int Height
+        {
+            get => height;
+            private set
+            {
+                if (value > 900 || value < 300)
+                    throw new ArgumentOutOfRangeException("Высота она должна быть от 300 до 900");
+                height = value;
+            }
+        }
+
         public static Random Rand = new Random();
         static Game()
         {
@@ -46,13 +60,20 @@ namespace WindowsApp2Asteroids
                 Draw();
             };
             timer.Start();
-            space = Image.FromFile(@"Images\Space.jpg");
         }
+        //////////////////////////////////////////////////////////////
+        /// <summary> Фоновое изображение космоса </summary>
+        private static Image space = Image.FromFile(@"Images\Space.jpg");
+        private static float movex;        /// <summary> Звезды на фоне </summary>
+        private static BaseObject[] fonStars;
+        /// <summary> Астероиды </summary>
+        private static BaseObject[] asteroids;
+        /// <summary> Пуля выпущенная слева </summary>
+        private static Bullet bullet;
         /// <summary> загрузка элементов в начальном состоянии </summary>
         private static void load()
         {
             fonStars = new BaseObject[200];
-
             for (int i = 0; i < 200; i++)
             {
                 int randSize;
@@ -79,6 +100,7 @@ namespace WindowsApp2Asteroids
             {
                 asteroids[i] = new Asteroid(new Point(Width + Rand.Next(Width), Rand.Next(Height - 30)), new Point(-5, 0), new Size(40, 40), Rand.Next(Asteroid.CountImages), Rand.Next(-8,8));
             }
+            bullet = new Bullet(new Point(10,Game.Height/2), new Point(4,0), new Size(18,5));
         }
         /// <summary> обновление всех элементов </summary>
         private static void update()
@@ -86,7 +108,15 @@ namespace WindowsApp2Asteroids
             foreach (var star in fonStars)
                 star.Update();
             foreach (var asteroid in asteroids)
+            {
                 asteroid.Update();
+                if (asteroid.Collision(bullet))
+                {
+                    asteroid.Reset();
+                    bullet.Reset();
+                }
+            }
+            bullet.Update();
         }
         /// <summary> Отрисовка всех элементов в окне </summary>
         public static void Draw()
@@ -96,6 +126,7 @@ namespace WindowsApp2Asteroids
                 star.Draw(buffer.Graphics);
             foreach (var asteroid in asteroids)
                 asteroid.Draw(buffer.Graphics);
+            bullet.Draw(buffer.Graphics);
             buffer.Render();
         }
         /// <summary> Отрисовка заднего фона </summary>

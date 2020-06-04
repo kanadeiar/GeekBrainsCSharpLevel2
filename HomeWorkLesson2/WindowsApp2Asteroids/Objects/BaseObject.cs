@@ -10,29 +10,34 @@ namespace WindowsApp2Asteroids.Objects
     /// <summary>
     /// Базовая фигура пространства
     /// </summary>
-    class BaseObject
+    abstract class BaseObject : ICollision
     {
         protected Point pos;
         protected Point dir;
         protected Size size;
+        public Rectangle Rect => new Rectangle(pos, size);
         protected BaseObject(Point pos, Point dir, Size size)
         {
             this.pos = pos;
             this.dir = dir;
             this.size = size;
         }
-        public virtual void Update()
-        {
-            pos.X += dir.X;
-            pos.Y += dir.Y;
-            if (pos.X < 0) dir.X = -dir.X;
-            if (pos.X + size.Width > Game.Width) dir.X = -dir.X;
-            if (pos.Y < 0) dir.Y = -dir.Y;
-            if (pos.Y + size.Height > Game.Height) dir.Y = -dir.Y;
-        }
+        /// <summary> Обновление состояния </summary>
+        public abstract void Update();
+        /// <summary> Установка в начальную позицию </summary>
+        public abstract void Reset();
+        /// <summary> Отрисовка на графической поверхности </summary>
+        /// <param name="g">Поверхность</param>
         public virtual void Draw(Graphics g)
         {
             g.DrawRectangle(Pens.White, new Rectangle(pos, size));
+        }
+        /// <summary> Столкновение с другим объектом </summary>
+        /// <param name="obj">другой объект</param>
+        /// <returns>столкнулись</returns>
+        public virtual bool Collision(ICollision obj)
+        {
+            return obj.Rect.IntersectsWith(this.Rect);
         }
     }
 }

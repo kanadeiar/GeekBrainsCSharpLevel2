@@ -41,11 +41,16 @@ namespace WindowsApp2Asteroids.Objects
             pos.X += dir.X;
             pos.Y += dir.Y;
             if (pos.X + size.Width < 0)
-            {
-                pos.X = Game.Width + size.Width + Game.Rand.Next(Game.Width);
-                pos.Y = Game.Rand.Next(Game.Height - size.Height);
-                currImage = Game.Rand.Next(CountImages);
-            }
+                Reset();
+        }
+        /// <summary>
+        /// Установка астероида на начальную позицию
+        /// </summary>
+        public override void Reset()
+        {
+            pos.X = Game.Width + size.Width + Game.Rand.Next(Game.Width);
+            pos.Y = Game.Rand.Next(Game.Height - size.Height);
+            currImage = Game.Rand.Next(CountImages);
         }
         /// <summary> Отрисовка астероида </summary>
         /// <param name="g">Графическое полотно</param>

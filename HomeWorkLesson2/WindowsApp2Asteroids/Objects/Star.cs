@@ -21,10 +21,15 @@ namespace WindowsApp2Asteroids.Objects
         {
             pos.X += dir.X;
             if (pos.X + size.Width < 0) //звезда за границей экрана
-            {
-                pos.X = Game.Width + size.Width;
-                pos.Y = Game.Rand.Next(Game.Height - size.Height);
-            }
+                Reset();
+        }
+        /// <summary>
+        /// Установка объекта на начальную позицию
+        /// </summary>
+        public override void Reset()
+        {
+            pos.X = Game.Width + size.Width;
+            pos.Y = Game.Rand.Next(Game.Height - size.Height);
         }
         /// <summary> Отрисовка звезды </summary>
         /// <param name="g">Графическое полотно</param>
