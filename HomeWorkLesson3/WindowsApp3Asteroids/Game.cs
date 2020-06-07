@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using WindowsApp3Asteroids.Objects;
@@ -48,6 +49,8 @@ namespace WindowsApp3Asteroids
                 Draw();
             };
             timer.Start();
+            form.KeyDown += Form_KeyDown;
+            form.KeyUp += Form_KeyUp;
         }
         ///////////////////////////////////////////////////////////////
         private static readonly Image space = Image.FromFile(@"Images\Space.jpg");
@@ -56,8 +59,10 @@ namespace WindowsApp3Asteroids
         private static ObjBase[] fonStars;
         /// <summary> Астероиды </summary>
         private static ObjBase[] asteroids;
-        /// <summary> Пуля </summary>
-        private static Bullet bullet;
+        /// <summary> Корабль </summary>
+        private static Ship ship;
+        /// <summary> Пули </summary>
+        private static List<Bullet> bullets;
         /// <summary> Загрузка элементов </summary>
         private static void Load()
         {
@@ -95,8 +100,8 @@ namespace WindowsApp3Asteroids
                 pos.Y = Rand.Next(Size.Height - 40);
                 asteroids[i] = new Asteroid(pos, new Point(-4, 0), new Size(40, 40), Rand.Next(Asteroid.CountImages), Rand.Next(2,4));
             }
-            bullet = new Bullet(new Point(0,Size.Height/2), new Point(4,0), new Size(18,5) );
-
+            ship = new Ship(new Point(5, Game.Size.Height / 2), new Point(4,4), new Size(100,25) );
+            bullets = new List<Bullet>();
         }
 
         /// <summary> Обновление состояния </summary>
@@ -107,13 +112,31 @@ namespace WindowsApp3Asteroids
             foreach (var asteroid in asteroids)
             {
                 asteroid.Update();
-                if (asteroid.Collision(bullet))
+                foreach (var bullet in bullets)
+                    if (asteroid.Collision(bullet))
+                    {
+                        System.Media.SystemSounds.Hand.Play();
+                        asteroid.Reset();
+                        bullet.DeleteMe = true;
+                        ////
+                    }
+                if (asteroid.Collision(ship))
                 {
+                    System.Media.SystemSounds.Asterisk.Play();
                     asteroid.Reset();
-                    bullet.Reset();
+                    ////
                 }
             }
-            bullet.Update();
+            ship?.Update();
+            for (int i = 0; i < bullets.Count; i++)
+            {
+                if (bullets[i].DeleteMe)
+                {
+                    bullets.Remove(bullets[i]);
+                    continue;
+                }
+                bullets[i].Update();
+            }
         }
 
         /// <summary> Отрисовка элементов </summary>
@@ -128,8 +151,27 @@ namespace WindowsApp3Asteroids
                 star.Draw(_buffer.Graphics);
             foreach (var asteroid in asteroids)
                 asteroid.Draw(_buffer.Graphics);
-            bullet.Draw(_buffer.Graphics);
+            ship?.Draw(_buffer.Graphics);
+            foreach (var bullet in bullets)
+                bullet.Draw(_buffer.Graphics);
             _buffer.Render();
+        }
+        ////////////////////////////////////////////////////////////////
+        private static void Form_KeyDown(object s, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.ControlKey)
+                bullets.Add(new Bullet(new Point(ship.Rect.X + ship.Rect.Width, ship.Rect.Y + 8), new Point(5,0), new Size(18,5)));
+            if (e.KeyCode == Keys.Up) ship.Up();
+            if (e.KeyCode == Keys.Down) ship.Down();
+            if (e.KeyCode == Keys.Left) ship.Left();
+            if (e.KeyCode == Keys.Right) ship.Right();
+        }
+        private static void Form_KeyUp(object s, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up) ship.UpOff();
+            if (e.KeyCode == Keys.Down) ship.DownOff();
+            if (e.KeyCode == Keys.Left) ship.LeftOff();
+            if (e.KeyCode == Keys.Right) ship.RightOff();
         }
     }
 }

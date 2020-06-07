@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 
 namespace WindowsApp3Asteroids.Objects
 {
-    /// <summary>
-    /// Пуля
-    /// </summary>
+    /// <summary> Пуля </summary>
     class Bullet : ObjBase
     {
         private static readonly Image image = Image.FromFile(@"Images\Bullet.png");
         public Bullet(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
+        /// <summary> Просьба удалить пулю </summary>
+        public bool DeleteMe { get; set; } = false;
+        /// <summary> Обновление пули </summary>
         public override void Update()
         {
             pos.X += dir.X;
@@ -23,11 +24,13 @@ namespace WindowsApp3Asteroids.Objects
             if (pos.X > Game.Size.Width)
                 Reset();
         }
+        /// <summary> Удаление пули </summary>
         public override void Reset()
         {
-            pos.X = 0;
-            pos.Y = Game.Size.Height / 2;
+            DeleteMe = true;
         }
+        /// <summary> Отрисовка пули </summary>
+        /// <param name="g">Поверхность</param>
         public override void Draw(Graphics g)
         {
             g.DrawImage(image, new Rectangle(pos, size));
