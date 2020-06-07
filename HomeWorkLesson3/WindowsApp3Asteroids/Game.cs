@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsApp3Asteroids.Objects;
 
 namespace WindowsApp3Asteroids
 {
@@ -54,6 +55,10 @@ namespace WindowsApp3Asteroids
         ///////////////////////////////////////////////////////////////
         private static readonly Image space = Image.FromFile(@"Images\Space.jpg");
         private static float _moveSpace;
+        /// <summary> Звезды на фоне </summary>
+        private static ObjBase[] fonStars;
+
+
         /// <summary> Перемещение фона </summary>
         private static void DoMoveSpace()
         {
@@ -67,14 +72,39 @@ namespace WindowsApp3Asteroids
         /// </summary>
         private static void Load()
         {
-
+            fonStars = new Star[200];
+            Point pos = new Point();
+            for (int i = 0; i < 200; i++)
+            {
+                int randSize;
+                int speed;
+                switch (i)
+                {
+                    case int k when k < 150:
+                        randSize = Rand.Next(3, 6);
+                        speed = 1;
+                        break;
+                    case int k when k < 180:
+                        randSize = Rand.Next(9, 12);
+                        speed = 2;
+                        break;
+                    default:
+                        randSize = Rand.Next(15, 20);
+                        speed = 3;
+                        break;
+                }
+                pos.X = Rand.Next(Size.Width - randSize);
+                pos.Y = Rand.Next(Size.Height - randSize);
+                fonStars[i] = new Star(pos, new Point(-speed,0), new Size(randSize,randSize) );
+            }
         }
         /// <summary>
         /// Обновление состояния
         /// </summary>
         private static void Update()
         {
-
+            foreach (var star in fonStars)
+                star.Update();
         }
         /// <summary>
         /// Отрисовка элементов
@@ -84,7 +114,8 @@ namespace WindowsApp3Asteroids
             _buffer.Graphics.DrawImage(space, 0 - _moveSpace, 0);
             _buffer.Graphics.DrawImage(space, space.Width - _moveSpace, 0);
             DoMoveSpace();
-            
+            foreach (var star in fonStars)
+                star.Draw(_buffer.Graphics);
             _buffer.Render();
         }
     }
