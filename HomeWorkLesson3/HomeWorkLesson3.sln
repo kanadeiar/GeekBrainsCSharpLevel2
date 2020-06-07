@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsApp3Asteroids", "WindowsApp3Asteroids\WindowsApp3Asteroids.csproj", "{416C5ACA-CAD2-4852-A878-DC54B30929DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{416C5ACA-CAD2-4852-A878-DC54B30929DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{416C5ACA-CAD2-4852-A878-DC54B30929DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{416C5ACA-CAD2-4852-A878-DC54B30929DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{416C5ACA-CAD2-4852-A878-DC54B30929DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {170DA6F3-5152-40EC-A893-B917A82FE405}
+	EndGlobalSection
+EndGlobal
