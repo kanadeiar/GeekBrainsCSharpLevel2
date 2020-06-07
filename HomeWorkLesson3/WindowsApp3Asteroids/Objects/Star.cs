@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace WindowsApp3Asteroids.Objects
 {
     /// <summary>
     /// Звезда на фоне
     /// </summary>
-    class Star : ObjBase
+    internal class Star : ObjBase
     {
         private static readonly Image image = Image.FromFile(@"Images\Star.png");
         public Star(Point pos, Point dir, Size size) : base(pos, dir, size)
@@ -20,6 +15,7 @@ namespace WindowsApp3Asteroids.Objects
         public override void Update()
         {
             pos.X += dir.X;
+            pos.Y += dir.Y;
             if (pos.X + size.Width < 0)
                 Reset();
         }
