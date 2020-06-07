@@ -50,6 +50,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="ICollision.cs" />
     <Compile Include="Objects\Asteroid.cs" />
+    <Compile Include="Objects\Bullet.cs" />
     <Compile Include="Objects\ObjBase.cs" />
     <Compile Include="Objects\Star.cs" />
     <Compile Include="Program.cs" />

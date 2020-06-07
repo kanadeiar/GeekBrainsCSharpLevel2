@@ -2,9 +2,7 @@
 
 namespace WindowsApp3Asteroids.Objects
 {
-    /// <summary>
-    /// Звезда на фоне
-    /// </summary>
+    /// <summary> Звезда на фоне </summary>
     internal class Star : ObjBase
     {
         private static readonly Image image = Image.FromFile(@"Images\Star.png");

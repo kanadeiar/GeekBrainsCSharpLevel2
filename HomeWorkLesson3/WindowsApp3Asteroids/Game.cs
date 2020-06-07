@@ -13,7 +13,6 @@ namespace WindowsApp3Asteroids
         private static BufferedGraphicsContext _context;
         private static BufferedGraphics _buffer;
         private static Size _size;
-
         /// <summary> Размеры окна </summary>
         public static Size Size
         {
@@ -27,10 +26,8 @@ namespace WindowsApp3Asteroids
                 _size = value;
             }
         }
-
         /// <summary> Случайное число </summary>
         public static Random Rand = new Random();
-
         static Game()
         { }
 
@@ -52,7 +49,6 @@ namespace WindowsApp3Asteroids
             };
             timer.Start();
         }
-
         ///////////////////////////////////////////////////////////////
         private static readonly Image space = Image.FromFile(@"Images\Space.jpg");
         private static float _moveSpace;
@@ -60,11 +56,9 @@ namespace WindowsApp3Asteroids
         private static ObjBase[] fonStars;
         /// <summary> Астероиды </summary>
         private static ObjBase[] asteroids;
-
-
-        /// <summary>
-        /// Загрузка элементов
-        /// </summary>
+        /// <summary> Пуля </summary>
+        private static Bullet bullet;
+        /// <summary> Загрузка элементов </summary>
         private static void Load()
         {
             fonStars = new Star[200];
@@ -101,11 +95,11 @@ namespace WindowsApp3Asteroids
                 pos.Y = Rand.Next(Size.Height - 40);
                 asteroids[i] = new Asteroid(pos, new Point(-4, 0), new Size(40, 40), Rand.Next(Asteroid.CountImages), Rand.Next(2,4));
             }
+            bullet = new Bullet(new Point(0,Size.Height/2), new Point(4,0), new Size(18,5) );
+
         }
 
-        /// <summary>
-        /// Обновление состояния
-        /// </summary>
+        /// <summary> Обновление состояния </summary>
         private static void Update()
         {
             foreach (var star in fonStars)
@@ -113,12 +107,16 @@ namespace WindowsApp3Asteroids
             foreach (var asteroid in asteroids)
             {
                 asteroid.Update();
+                if (asteroid.Collision(bullet))
+                {
+                    asteroid.Reset();
+                    bullet.Reset();
+                }
             }
+            bullet.Update();
         }
 
-        /// <summary>
-        /// Отрисовка элементов
-        /// </summary>
+        /// <summary> Отрисовка элементов </summary>
         private static void Draw()
         {
             _buffer.Graphics.DrawImage(space, 0 - _moveSpace, 0);
@@ -130,6 +128,7 @@ namespace WindowsApp3Asteroids
                 star.Draw(_buffer.Graphics);
             foreach (var asteroid in asteroids)
                 asteroid.Draw(_buffer.Graphics);
+            bullet.Draw(_buffer.Graphics);
             _buffer.Render();
         }
     }

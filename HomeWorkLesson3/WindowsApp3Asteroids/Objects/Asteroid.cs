@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsApp3Asteroids.Objects
 {
+    /// <summary> Астероид </summary>
     internal class Asteroid : Star
     {
         private static readonly Image[] astImages = new Image[]
