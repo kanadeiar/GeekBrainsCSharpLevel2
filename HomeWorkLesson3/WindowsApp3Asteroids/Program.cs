@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.IO;
+using System.Windows.Forms;
 
 namespace WindowsApp3Asteroids
 {
@@ -25,7 +27,21 @@ namespace WindowsApp3Asteroids
                 StartPosition = FormStartPosition.CenterScreen,
             };
             SplashScreen.Init(form);
+            Game.DebugMessage += ConsoleMessage;
+            Game.DebugMessage += FileMessage;
             Application.Run(form);
+        }
+
+        static void ConsoleMessage(string msg)
+        {
+            Console.WriteLine(msg);
+        }
+        static void FileMessage(string msg)
+        {
+            using (StreamWriter fout = new StreamWriter(new FileStream("log.log", FileMode.Append, FileAccess.Write)))
+            {
+                fout.WriteLine(msg);
+            }
         }
     }
 }

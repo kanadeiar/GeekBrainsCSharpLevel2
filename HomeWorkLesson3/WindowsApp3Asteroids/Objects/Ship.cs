@@ -34,19 +34,19 @@ namespace WindowsApp3Asteroids.Objects
             }
             else if (right)
             {
-                if (pos.X + size.Width < Game.Size.Width) pos.X += dir.X;
+                if (pos.X + size.Width < Game.Size.Width/2) pos.X += dir.X;
             }
         }
 
         public override void Reset()
-        {
-            
-        }
+        { }
         public override void Draw(Graphics g)
         {
             g.DrawImage(image, new Rectangle(pos, size));
+            g.DrawString($"Энергия: {Energy}", new Font(FontFamily.GenericSansSerif, 10), Brushes.White, pos.X, pos.Y - 30);
+            g.DrawRectangle(new Pen(Color.White), new Rectangle(pos.X, pos.Y - 10, 100, 6));
+            g.DrawRectangle(new Pen(Color.GreenYellow), new Rectangle(pos.X+2, pos.Y - 8, (int)(96 * (Energy / 100.0)), 2));
         }
-
         public void Up() => up = true;
         public void UpOff() => up = false;
         public void Down() => down = true;

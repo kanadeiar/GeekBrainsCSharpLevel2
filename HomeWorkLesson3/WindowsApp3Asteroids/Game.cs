@@ -29,6 +29,8 @@ namespace WindowsApp3Asteroids
         }
         /// <summary> Случайное число </summary>
         public static Random Rand = new Random();
+        /// <summary> Сообщение о проишедшем событии </summary>
+        public static Action<string> DebugMessage;
         static Game()
         { }
 
@@ -118,13 +120,15 @@ namespace WindowsApp3Asteroids
                         System.Media.SystemSounds.Hand.Play();
                         asteroid.Reset();
                         bullet.DeleteMe = true;
-                        ////
+                        ship.Score++;
+                        DebugMessage("Пуля сбила астероид!");
                     }
                 if (asteroid.Collision(ship))
                 {
                     System.Media.SystemSounds.Asterisk.Play();
                     asteroid.Reset();
-                    ////
+                    ship.Energy -= 10;
+                    DebugMessage("Астероид подбил корабль!");
                 }
             }
             ship?.Update();
@@ -152,6 +156,8 @@ namespace WindowsApp3Asteroids
             foreach (var asteroid in asteroids)
                 asteroid.Draw(_buffer.Graphics);
             ship?.Draw(_buffer.Graphics);
+            if (ship != null)
+                _buffer.Graphics.DrawString($"Количество очков: {ship.Score}", new Font(FontFamily.GenericSansSerif, 14), Brushes.White, 760,10);
             foreach (var bullet in bullets)
                 bullet.Draw(_buffer.Graphics);
             _buffer.Render();
@@ -160,7 +166,11 @@ namespace WindowsApp3Asteroids
         private static void Form_KeyDown(object s, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.ControlKey)
-                bullets.Add(new Bullet(new Point(ship.Rect.X + ship.Rect.Width, ship.Rect.Y + 8), new Point(5,0), new Size(18,5)));
+            {
+                Point pos = new Point(ship.Rect.X + ship.Rect.Width - 25, ship.Rect.Y + 8);
+                bullets.Add(new Bullet(pos, new Point(5,0), new Size(18,5)));
+
+            }
             if (e.KeyCode == Keys.Up) ship.Up();
             if (e.KeyCode == Keys.Down) ship.Down();
             if (e.KeyCode == Keys.Left) ship.Left();
