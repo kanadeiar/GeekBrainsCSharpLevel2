@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Media;
 using System.Windows.Forms;
 using WindowsApp3Asteroids.Objects;
 
@@ -14,6 +15,7 @@ namespace WindowsApp3Asteroids
         private static BufferedGraphicsContext _context;
         private static BufferedGraphics _buffer;
         private static Size _size;
+        private static readonly Timer Timer = new Timer { Interval = 10 };
         /// <summary> Размеры окна </summary>
         public static Size Size
         {
@@ -31,6 +33,9 @@ namespace WindowsApp3Asteroids
         public static Random Rand = new Random();
         /// <summary> Сообщение о проишедшем событии </summary>
         public static Action<string> DebugMessage;
+        /// <summary> Сообщение о конце игры </summary>
+        public delegate void MessageGameOver();
+
         static Game()
         { }
 
@@ -44,13 +49,12 @@ namespace WindowsApp3Asteroids
             Size = form.ClientSize;
             _buffer = _context.Allocate(g, new Rectangle(new Point(0, 0), Size));
             Load();
-            Timer timer = new Timer { Interval = 10 };
-            timer.Tick += (s, a) =>
+            Timer.Tick += (s, a) =>
             {
                 Update();
-                Draw();
+                if (Timer.Enabled) Draw();
             };
-            timer.Start();
+            Timer.Start();
             form.KeyDown += Form_KeyDown;
             form.KeyUp += Form_KeyUp;
         }
@@ -65,6 +69,8 @@ namespace WindowsApp3Asteroids
         private static Ship ship;
         /// <summary> Пули </summary>
         private static List<Bullet> bullets;
+        /// <summary> Аптечка </summary>
+        private static Energy energy;
         /// <summary> Загрузка элементов </summary>
         private static void Load()
         {
@@ -103,7 +109,9 @@ namespace WindowsApp3Asteroids
                 asteroids[i] = new Asteroid(pos, new Point(-4, 0), new Size(40, 40), Rand.Next(Asteroid.CountImages), Rand.Next(2,4));
             }
             ship = new Ship(new Point(5, Game.Size.Height / 2), new Point(4,4), new Size(100,25) );
+            Ship.MessageGameOver += GameOver; //конец игры
             bullets = new List<Bullet>();
+            energy = new Energy(new Point(Size.Width + Rand.Next(Size.Width - 30), Rand.Next(Size.Height - 30)), new Point(-4,0), new Size(30,30));
         }
 
         /// <summary> Обновление состояния </summary>
@@ -117,7 +125,7 @@ namespace WindowsApp3Asteroids
                 foreach (var bullet in bullets)
                     if (asteroid.Collision(bullet))
                     {
-                        System.Media.SystemSounds.Hand.Play();
+                        SystemSounds.Hand.Play();
                         asteroid.Reset();
                         bullet.DeleteMe = true;
                         ship.Score++;
@@ -125,7 +133,7 @@ namespace WindowsApp3Asteroids
                     }
                 if (asteroid.Collision(ship))
                 {
-                    System.Media.SystemSounds.Asterisk.Play();
+                    SystemSounds.Asterisk.Play();
                     asteroid.Reset();
                     ship.Energy -= 10;
                     DebugMessage("Астероид подбил корабль!");
@@ -141,6 +149,18 @@ namespace WindowsApp3Asteroids
                 }
                 bullets[i].Update();
             }
+            energy?.Update();
+            if (energy?.Collision(ship) == true)
+            {
+                SystemSounds.Asterisk.Play();
+                energy.Reset();
+                ship.Energy += 10;
+                if (ship.Energy > 100)
+                    ship.Energy = 100;
+                DebugMessage("Корабль подлатался!");
+            }
+            if (ship?.Energy <= 0)
+                ship?.Die(); //гибель корабля
         }
 
         /// <summary> Отрисовка элементов </summary>
@@ -160,6 +180,7 @@ namespace WindowsApp3Asteroids
                 _buffer.Graphics.DrawString($"Количество очков: {ship.Score}", new Font(FontFamily.GenericSansSerif, 14), Brushes.White, 760,10);
             foreach (var bullet in bullets)
                 bullet.Draw(_buffer.Graphics);
+            energy?.Draw(_buffer.Graphics);
             _buffer.Render();
         }
         ////////////////////////////////////////////////////////////////
@@ -182,6 +203,13 @@ namespace WindowsApp3Asteroids
             if (e.KeyCode == Keys.Down) ship.DownOff();
             if (e.KeyCode == Keys.Left) ship.LeftOff();
             if (e.KeyCode == Keys.Right) ship.RightOff();
+        }
+
+        private static void GameOver()
+        {
+            Timer.Stop();
+            _buffer.Graphics.DrawString("Игра закончена!", new Font(FontFamily.GenericSansSerif, 80), Brushes.Red, 50, 140);
+            _buffer.Render();
         }
     }
 }
