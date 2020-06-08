@@ -11,13 +11,15 @@ namespace WindowsApp3Asteroids.Objects
     class Ship : ObjBase
     {
         private static Image image = Image.FromFile("Images\\Ship.png");
-        
+        /// <summary> Здровье корабля </summary>
         public int Energy { get; set; } = 100;
+        /// <summary> Количество сбитых астероидов </summary>
         public int Score { get; set; } = default;
         private bool up, down, left, right;
         public Ship(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
+        /// <summary> Обновление корабля </summary>
         public override void Update()
         {
             if (up)
@@ -37,9 +39,11 @@ namespace WindowsApp3Asteroids.Objects
                 if (pos.X + size.Width < Game.Size.Width/2) pos.X += dir.X;
             }
         }
-
+        /// <summary> Уничтожение корабля </summary>
         public override void Reset()
         { }
+        /// <summary> Перерисование корабля </summary>
+        /// <param name="g"></param>
         public override void Draw(Graphics g)
         {
             g.DrawImage(image, new Rectangle(pos, size));
@@ -47,6 +51,8 @@ namespace WindowsApp3Asteroids.Objects
             g.DrawRectangle(new Pen(Color.White), new Rectangle(pos.X, pos.Y - 10, 100, 6));
             g.DrawRectangle(new Pen(Color.GreenYellow), new Rectangle(pos.X+2, pos.Y - 8, (int)(96 * (Energy / 100.0)), 2));
         }
+        ///////////////////////////////////////////////////////////////
+        // Команды перемещения корабля
         public void Up() => up = true;
         public void UpOff() => up = false;
         public void Down() => down = true;
