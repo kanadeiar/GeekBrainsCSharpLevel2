@@ -18,7 +18,8 @@ namespace WindowsApp3Asteroids.Objects
         /// <summary> Количество сбитых астероидов </summary>
         public int Score { get; set; } = default;
         /// <summary> Сообщение о окончании игры </summary>
-        public static event Game.MessageGameOver MessageGameOver;
+        //public static event Game.MessageGameOver MessageGameOver;
+        public static event Action<string> MessageGameOver;
         public Ship(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
@@ -57,7 +58,7 @@ namespace WindowsApp3Asteroids.Objects
         /// <summary> Гибель корабля - конец игры </summary>
         public void Die()
         {
-            MessageGameOver?.Invoke();
+            MessageGameOver?.Invoke("Конец игры!");
         }
         ///////////////////////////////////////////////////////////////
         // Команды перемещения корабля

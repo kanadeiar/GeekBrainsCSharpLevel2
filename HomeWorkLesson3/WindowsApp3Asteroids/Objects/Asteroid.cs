@@ -47,8 +47,9 @@ namespace WindowsApp3Asteroids.Objects
         /// <param name="g">Полотно</param>
         public override void Draw(Graphics g)
         {
-            Image image = Tools.RotateBitmap(astImages[currentImage], new PointF(50, 50), angle);
+            Image image = Tools.RotateBitmapAsteroid(astImages[currentImage], new PointF(50, 50), angle);
             angle += angledir;
+            //Image image = astImages[currentImage];
             g.DrawImage(image, new Rectangle(pos, size));
         }
     }

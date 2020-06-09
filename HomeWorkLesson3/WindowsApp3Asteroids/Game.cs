@@ -34,7 +34,7 @@ namespace WindowsApp3Asteroids
         /// <summary> Сообщение о проишедшем событии </summary>
         public static Action<string> DebugMessage;
         /// <summary> Сообщение о конце игры </summary>
-        public delegate void MessageGameOver();
+        //public delegate void MessageGameOver();
 
         static Game()
         { }
@@ -205,10 +205,10 @@ namespace WindowsApp3Asteroids
             if (e.KeyCode == Keys.Right) ship.RightOff();
         }
 
-        private static void GameOver()
+        private static void GameOver(string message)
         {
             Timer.Stop();
-            _buffer.Graphics.DrawString("Игра закончена!", new Font(FontFamily.GenericSansSerif, 80), Brushes.Red, 50, 140);
+            _buffer.Graphics.DrawString(message, new Font(FontFamily.GenericSansSerif, 80), Brushes.Red, 150, 140);
             _buffer.Render();
         }
     }
