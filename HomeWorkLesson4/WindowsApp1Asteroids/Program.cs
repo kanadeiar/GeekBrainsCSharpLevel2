@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace WindowsApp1Asteroids
@@ -25,8 +20,9 @@ namespace WindowsApp1Asteroids
                 Height = 768,
                 Text = "Методичка 4. Продвинутый курс C#. Задача № 1. Доработка игры \"Астероиды\"",
                 StartPosition = FormStartPosition.CenterScreen,
+                Icon = Icon.ExtractAssociatedIcon(@"Images\Avatar.ico"),
             };
-
+            SplashScreen.Init(form);
 
             Application.Run(form);
         }
