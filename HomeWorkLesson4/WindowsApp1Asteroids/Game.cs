@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Media;
 using System.Windows.Forms;
 using WindowsApp1Asteroids.Objects;
 
@@ -59,16 +60,22 @@ namespace WindowsApp1Asteroids
         private static readonly Image space = Image.FromFile(@"Images\Space.jpg");
         private static float _moveSpace;
         /// <summary> Звезды на фоне </summary>
-        private static ObjBase[] fonStars;
+        private static ObjBase[] _fonStars;
         /// <summary> Астероиды </summary>
-        private static ObjBase[] asteroids;
+        private static ObjBase[] _asteroids;
+        /// <summary> Корабль </summary>
+        private static Ship _ship;
+
+
+
+
         #endregion
         #region Методы-обработчики
         ///////////////////////////////////////////////////
         /// <summary> Загрузка элементов </summary>
         private static void Load()
         {
-            fonStars = new Star[200];
+            _fonStars = new Star[200];
             Point pos = new Point();
             for (int i = 0; i < 200; i++)
             {
@@ -91,15 +98,19 @@ namespace WindowsApp1Asteroids
                 }
                 pos.X = Rand.Next(Size.Width - randSize);
                 pos.Y = Rand.Next(Size.Height - randSize);
-                fonStars[i] = new Star(pos, new Point(-speed, 0), new Size(randSize, randSize));
+                _fonStars[i] = new Star(pos, new Point(-speed, 0), new Size(randSize, randSize));
             }
-            asteroids = new Asteroid[10];
-            for (int i = 0; i < asteroids.Length; i++)
+            _asteroids = new Asteroid[10];
+            for (int i = 0; i < _asteroids.Length; i++)
             {
                 pos.X = Size.Width + Rand.Next(Size.Width);
                 pos.Y = Rand.Next(Size.Height - 40);
-                asteroids[i] = new Asteroid(pos, new Point(-4, 0), new Size(40, 40), Rand.Next(Asteroid.CountImages) );
+                _asteroids[i] = new Asteroid(pos, new Point(-4, 0), new Size(40, 40), Rand.Next(Asteroid.CountImages) );
             }
+            _ship = new Ship(new Point(5, Game.Size.Height / 2), new Point(5,5), new Size(100,25));
+            Ship.MessageGameOver += GameOver; //конец игры
+
+
 
         }
         /// <summary> Обновление состояния </summary>
@@ -108,26 +119,46 @@ namespace WindowsApp1Asteroids
             _moveSpace += 0.2F;
             if (_moveSpace > space.Width)
                 _moveSpace = 0.0F;
-            foreach (var star in fonStars)
+            foreach (var star in _fonStars)
                 star.Update();
-            foreach (var asteroid in asteroids)
+            foreach (var asteroid in _asteroids)
             {
                 asteroid.Update();
-            }
 
+
+
+
+                if (asteroid.Collision(_ship))
+                {
+                    SystemSounds.Asterisk.Play();
+                    asteroid.Reset();
+                    _ship.Energy -= 10;
+                    EventMessage("Астероид попал в корабль!");
+                }
+            }
+            _ship?.Update();
+
+
+
+
+            if (_ship?.Energy <= 0)
+                _ship?.Reset();
         }
 
         public static void Draw()
         {
             _buffer.Graphics.DrawImage(space, 0 - _moveSpace, 0);
             _buffer.Graphics.DrawImage(space, space.Width - _moveSpace, 0);
-            foreach (var star in fonStars)
+            foreach (var star in _fonStars)
                 star.Draw(_buffer.Graphics);
-            foreach (var asteroid in asteroids)
+            foreach (var asteroid in _asteroids)
                 asteroid.Draw(_buffer.Graphics);
-
-
-
+            _ship?.Draw(_buffer.Graphics);
+            if (_ship != null)
+            {
+                _buffer.Graphics.DrawString($"Количество набранных очков: {_ship.Score}", new Font(FontFamily.GenericSansSerif, 14), Brushes.White, 650, 10);
+                _buffer.Graphics.DrawString($"Энергия: {_ship.Energy}%", new Font(FontFamily.GenericSansSerif, 14), Brushes.White, 10, 10);
+            }
             _buffer.Render();
         }
         /// <summary> Конец игры </summary>
@@ -135,7 +166,7 @@ namespace WindowsApp1Asteroids
         private static void GameOver(string message)
         {
             timer.Stop();
-            _buffer.Graphics.DrawString(message, new Font(FontFamily.GenericSansSerif, 80), Brushes.Red, 140, 140 );
+            _buffer.Graphics.DrawString(message, new Font(FontFamily.GenericSansSerif, 80), Brushes.Red, 150, 140 );
             _buffer.Render();
         }
         #endregion
@@ -143,11 +174,17 @@ namespace WindowsApp1Asteroids
         ///////////////////////////////////////////////////
         private static void Form_KeyDown(object s, KeyEventArgs e)
         {
-
+            if (e.KeyCode == Keys.Up) _ship.Up();
+            if (e.KeyCode == Keys.Down) _ship.Down();
+            if (e.KeyCode == Keys.Left) _ship.Left();
+            if (e.KeyCode == Keys.Right) _ship.Right();
         }
         private static void Form_KeyUp(object s, KeyEventArgs e)
         {
-
+            if (e.KeyCode == Keys.Up) _ship.UpN();
+            if (e.KeyCode == Keys.Down) _ship.DownN();
+            if (e.KeyCode == Keys.Left) _ship.LeftN();
+            if (e.KeyCode == Keys.Right) _ship.RightN();
         }
         #endregion
     }

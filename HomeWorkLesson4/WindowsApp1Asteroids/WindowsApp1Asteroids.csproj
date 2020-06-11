@@ -48,6 +48,7 @@
     <Compile Include="Objects\Asteroid.cs" />
     <Compile Include="Objects\ICollision.cs" />
     <Compile Include="Objects\ObjBase.cs" />
+    <Compile Include="Objects\Ship.cs" />
     <Compile Include="Objects\Star.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="SplashScreen.cs" />
