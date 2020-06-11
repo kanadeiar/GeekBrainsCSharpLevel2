@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 using WindowsApp1Asteroids.Objects;
 
@@ -45,7 +46,7 @@ namespace WindowsApp1Asteroids
             timer.Tick += (s, a) =>
             {
                 Update();
-                if (timer.Enabled) 
+                if (timer.Enabled)
                     Draw();
             };
             timer.Start();
@@ -59,7 +60,8 @@ namespace WindowsApp1Asteroids
         private static float _moveSpace;
         /// <summary> Звезды на фоне </summary>
         private static ObjBase[] fonStars;
-
+        /// <summary> Астероиды </summary>
+        private static ObjBase[] asteroids;
         #endregion
         #region Методы-обработчики
         ///////////////////////////////////////////////////
@@ -91,6 +93,14 @@ namespace WindowsApp1Asteroids
                 pos.Y = Rand.Next(Size.Height - randSize);
                 fonStars[i] = new Star(pos, new Point(-speed, 0), new Size(randSize, randSize));
             }
+            asteroids = new Asteroid[10];
+            for (int i = 0; i < asteroids.Length; i++)
+            {
+                pos.X = Size.Width + Rand.Next(Size.Width);
+                pos.Y = Rand.Next(Size.Height - 40);
+                asteroids[i] = new Asteroid(pos, new Point(-4, 0), new Size(40, 40), Rand.Next(Asteroid.CountImages) );
+            }
+
         }
         /// <summary> Обновление состояния </summary>
         private static void Update()
@@ -100,7 +110,10 @@ namespace WindowsApp1Asteroids
                 _moveSpace = 0.0F;
             foreach (var star in fonStars)
                 star.Update();
-
+            foreach (var asteroid in asteroids)
+            {
+                asteroid.Update();
+            }
 
         }
 
@@ -110,6 +123,9 @@ namespace WindowsApp1Asteroids
             _buffer.Graphics.DrawImage(space, space.Width - _moveSpace, 0);
             foreach (var star in fonStars)
                 star.Draw(_buffer.Graphics);
+            foreach (var asteroid in asteroids)
+                asteroid.Draw(_buffer.Graphics);
+
 
 
             _buffer.Render();

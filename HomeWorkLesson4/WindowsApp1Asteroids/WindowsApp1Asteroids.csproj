@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
+    <Compile Include="Objects\Asteroid.cs" />
     <Compile Include="Objects\ICollision.cs" />
     <Compile Include="Objects\ObjBase.cs" />
     <Compile Include="Objects\Star.cs" />
@@ -53,19 +54,19 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Images\Asteroid1.png">
+    <Content Include="Images\Asteroid1Animation.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\Asteroid2.png">
+    <Content Include="Images\Asteroid2Animation.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\Asteroid3.png">
+    <Content Include="Images\Asteroid3Animation.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\Asteroid4.png">
+    <Content Include="Images\Asteroid4Animation.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\Asteroid5.png">
+    <Content Include="Images\Asteroid5Animation.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\Avatar.ico">

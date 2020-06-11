@@ -4,16 +4,16 @@ namespace WindowsApp1Asteroids.Objects
 {
     abstract class ObjBase : ICollision
     {
-        protected Point Pos;
-        protected Point Dir;
-        protected Size Size;
+        protected Point pos;
+        protected Point dir;
+        protected Size size;
         /// <summary> Границы </summary>
-        public Rectangle Rect => new Rectangle(Pos, Size);
+        public Rectangle Rect => new Rectangle(pos, size);
         protected ObjBase(Point pos, Point dir, Size size)
         {
-            Pos = pos;
-            Dir = dir;
-            Size = size;
+            this.pos = pos;
+            this.dir = dir;
+            this.size = size;
         }
         /// <summary> Обновение </summary>
         public abstract void Update();
@@ -23,7 +23,7 @@ namespace WindowsApp1Asteroids.Objects
         /// <param name="g">Поверхность</param>
         public virtual void Draw(Graphics g)
         {
-            g.DrawRectangle(Pens.White, new Rectangle(Pos, Size));
+            g.DrawRectangle(Pens.White, new Rectangle(pos, size));
         }
         /// <summary> Столкновение с другим </summary>
         /// <param name="obj">Другой</param>
