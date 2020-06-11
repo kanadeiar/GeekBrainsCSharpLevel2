@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WindowsApp1Asteroids.Objects
 {
     /// <summary> Космический корабль </summary>
     class Ship : ObjBase
     {
-        private static Image image = Image.FromFile(@"Images\Ship.png");
+        private static readonly Image _image = Image.FromFile(@"Images\Ship.png");
         private bool up, down, left, right;
         /// <summary> Здоровье корабля </summary>
         public int Energy { get; set; } = 100;
@@ -49,7 +45,7 @@ namespace WindowsApp1Asteroids.Objects
         /// <param name="g">Поверхность</param>
         public override void Draw(Graphics g)
         {
-            g.DrawImage(image, new Rectangle(pos, size));
+            g.DrawImage(_image, new Rectangle(pos, size));
             g.DrawRectangle(new Pen(Color.White), new Rectangle(pos.X, pos.Y - 10, 100, 6));
             g.DrawRectangle(new Pen(Color.GreenYellow), new Rectangle(pos.X + 2, pos.Y - 8, (int)(96 * (Energy / 100.0F)), 2 ));
         }

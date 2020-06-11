@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WindowsApp1Asteroids.Objects
 {
@@ -12,26 +7,23 @@ namespace WindowsApp1Asteroids.Objects
     internal class Asteroid : Star
     {
         //массив изображений астероидов покадрово
-        private static Image[,] astImages;
+        private static readonly Image[,] _astImages;
         //количество кадров
         private static readonly int _cadrSize = 16;
         /// <summary> количество разновидностей астероидов </summary>
-        public static int CountImages => astImages.GetLength(0);
+        public static int CountImages => _astImages.GetLength(0);
         static Asteroid()
         {
-            astImages = new Image[5,_cadrSize];
-            for (int i = 0; i < astImages.GetLength(0); i++)
+            _astImages = new Image[5,_cadrSize];
+            for (int i = 0; i < _astImages.GetLength(0); i++)
             {
                 Image image = Image.FromFile($@"Images\Asteroid{i+1}Animation.png");
-                //Image[] cadrImages = new Image[_cadrSize];
                 for (int j = 0; j < _cadrSize; j++)
                 {
                     Rectangle rectangle = new Rectangle(j*100,0,100,100);
                     Bitmap pic = (Bitmap)image;
-                    //cadrImages[j] = pic.Clone(rectangle, PixelFormat.Format32bppArgb);
-                    astImages[i,j] = pic.Clone(rectangle, PixelFormat.Format32bppArgb);
+                    _astImages[i,j] = pic.Clone(rectangle, PixelFormat.Format32bppArgb);
                 }
-                //astImages[i] = cadrImages;
             }
         }
         //текущий вид астероида
@@ -55,7 +47,7 @@ namespace WindowsApp1Asteroids.Objects
         /// <param name="g">Поверхность</param>
         public override void Draw(Graphics g)
         {
-            g.DrawImage(astImages[_currentImage,(int)_currCadr], new Rectangle(pos, size));
+            g.DrawImage(_astImages[_currentImage,(int)_currCadr], new Rectangle(pos, size));
             _currCadr += _cadrDir;
             if (_currCadr >= _cadrSize)
                 _currCadr = 0;

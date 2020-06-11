@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Media;
 using System.Windows.Forms;
 using WindowsApp1Asteroids.Objects;
@@ -65,8 +65,8 @@ namespace WindowsApp1Asteroids
         private static ObjBase[] _asteroids;
         /// <summary> Корабль </summary>
         private static Ship _ship;
-
-
+        /// <summary> Аптечки </summary>
+        private static List<Bullet> bullets;
 
 
         #endregion
@@ -109,7 +109,7 @@ namespace WindowsApp1Asteroids
             }
             _ship = new Ship(new Point(5, Game.Size.Height / 2), new Point(5,5), new Size(100,25));
             Ship.MessageGameOver += GameOver; //конец игры
-
+            bullets = new List<Bullet>();
 
 
         }
@@ -124,10 +124,15 @@ namespace WindowsApp1Asteroids
             foreach (var asteroid in _asteroids)
             {
                 asteroid.Update();
-
-
-
-
+                foreach (var bullet in bullets)
+                    if (asteroid.Collision(bullet))
+                    {
+                        SystemSounds.Hand.Play();
+                        asteroid.Reset();
+                        bullet.DeleteMe = true;
+                        _ship.Score++;
+                        EventMessage("Пуля сбила астероид!");
+                    }
                 if (asteroid.Collision(_ship))
                 {
                     SystemSounds.Asterisk.Play();
@@ -137,7 +142,15 @@ namespace WindowsApp1Asteroids
                 }
             }
             _ship?.Update();
-
+            for (int i = 0; i < bullets.Count; i++)
+            {
+                if (bullets[i].DeleteMe)
+                {
+                    bullets.Remove(bullets[i]);
+                    continue;
+                }
+                bullets[i].Update();
+            }
 
 
 
@@ -159,6 +172,9 @@ namespace WindowsApp1Asteroids
                 _buffer.Graphics.DrawString($"Количество набранных очков: {_ship.Score}", new Font(FontFamily.GenericSansSerif, 14), Brushes.White, 650, 10);
                 _buffer.Graphics.DrawString($"Энергия: {_ship.Energy}%", new Font(FontFamily.GenericSansSerif, 14), Brushes.White, 10, 10);
             }
+            foreach (var bullet in bullets)
+                bullet.Draw(_buffer.Graphics);
+
             _buffer.Render();
         }
         /// <summary> Конец игры </summary>
@@ -178,6 +194,11 @@ namespace WindowsApp1Asteroids
             if (e.KeyCode == Keys.Down) _ship.Down();
             if (e.KeyCode == Keys.Left) _ship.Left();
             if (e.KeyCode == Keys.Right) _ship.Right();
+            if (e.KeyCode == Keys.ControlKey)
+            {
+                Point pos = new Point(_ship.Rect.X + _ship.Rect.Width - 25, _ship.Rect.Y + 8);
+                bullets.Add(new Bullet(pos, new Point(6,0), new Size(18,5)));
+            }
         }
         private static void Form_KeyUp(object s, KeyEventArgs e)
         {
