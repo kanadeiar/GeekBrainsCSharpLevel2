@@ -49,7 +49,8 @@ namespace WindowsApp1Asteroids
             buttonGame.Click += (s, a) =>
             {
                 splashForm.Controls.Clear();
-
+                Game.Init(splashForm);
+                Game.Draw();
             };
             form.Controls.Add(buttonGame);
             Button buttonExit = new Button

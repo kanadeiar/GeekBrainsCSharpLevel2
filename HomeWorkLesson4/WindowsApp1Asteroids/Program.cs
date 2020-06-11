@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace WindowsApp1Asteroids
@@ -21,9 +23,17 @@ namespace WindowsApp1Asteroids
                 Text = "Методичка 4. Продвинутый курс C#. Задача № 1. Доработка игры \"Астероиды\"",
                 StartPosition = FormStartPosition.CenterScreen,
                 Icon = Icon.ExtractAssociatedIcon(@"Images\Avatar.ico"),
+                MaximumSize = new Size(1024, 768),
             };
             SplashScreen.Init(form);
-
+            Game.EventMessage += Console.WriteLine;
+            Game.EventMessage += s =>
+            {
+                using (StreamWriter fout = new StreamWriter(new FileStream("log.log", FileMode.Append, FileAccess.Write)))
+                {
+                    fout.WriteLine(s);
+                }
+            };
             Application.Run(form);
         }
     }
