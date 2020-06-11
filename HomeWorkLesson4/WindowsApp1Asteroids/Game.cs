@@ -65,10 +65,10 @@ namespace WindowsApp1Asteroids
         private static ObjBase[] _asteroids;
         /// <summary> Корабль </summary>
         private static Ship _ship;
-        /// <summary> Аптечки </summary>
+        /// <summary> Пули </summary>
         private static List<Bullet> bullets;
-
-
+        /// <summary> Аптечка </summary>
+        private static Energy energy;
         #endregion
         #region Методы-обработчики
         ///////////////////////////////////////////////////
@@ -110,7 +110,7 @@ namespace WindowsApp1Asteroids
             _ship = new Ship(new Point(5, Game.Size.Height / 2), new Point(5,5), new Size(100,25));
             Ship.MessageGameOver += GameOver; //конец игры
             bullets = new List<Bullet>();
-
+            energy = new Energy(new Point(Size.Width + Rand.Next(Size.Width - 30), Rand.Next(Size.Height - 30)), new Point(-4, 0), new Size(30, 30));
 
         }
         /// <summary> Обновление состояния </summary>
@@ -151,8 +151,16 @@ namespace WindowsApp1Asteroids
                 }
                 bullets[i].Update();
             }
-
-
+            energy?.Update();
+            if (energy?.Collision(_ship) == true)
+            {
+                SystemSounds.Exclamation.Play();
+                energy.Reset();
+                _ship.Energy += 10;
+                if (_ship.Energy > 100)
+                    _ship.Energy = 100;
+                EventMessage("Корабль подлечился!");
+            }
 
             if (_ship?.Energy <= 0)
                 _ship?.Reset();
@@ -174,6 +182,7 @@ namespace WindowsApp1Asteroids
             }
             foreach (var bullet in bullets)
                 bullet.Draw(_buffer.Graphics);
+            energy?.Draw(_buffer.Graphics);
 
             _buffer.Render();
         }
