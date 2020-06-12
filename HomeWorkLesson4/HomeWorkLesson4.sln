@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsApp1Asteroids", "Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp2Collection", "WindowsFormsApp2Collection\WindowsFormsApp2Collection.csproj", "{CC7B25D8-9464-4123-8A36-7C3EE67A2D0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp3Dictionary", "WindowsFormsApp3Dictionary\WindowsFormsApp3Dictionary.csproj", "{14961B2C-E4AD-4C3E-8625-3CD91970A0D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CC7B25D8-9464-4123-8A36-7C3EE67A2D0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC7B25D8-9464-4123-8A36-7C3EE67A2D0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC7B25D8-9464-4123-8A36-7C3EE67A2D0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14961B2C-E4AD-4C3E-8625-3CD91970A0D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14961B2C-E4AD-4C3E-8625-3CD91970A0D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14961B2C-E4AD-4C3E-8625-3CD91970A0D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14961B2C-E4AD-4C3E-8625-3CD91970A0D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
