@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsApp1Asteroids", "WindowsApp1Asteroids\WindowsApp1Asteroids.csproj", "{AA063DC3-A4E4-4008-9A26-0AF2A075D6A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1Collection", "WindowsFormsApp1Collection\WindowsFormsApp1Collection.csproj", "{CC7B25D8-9464-4123-8A36-7C3EE67A2D0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp2Collection", "WindowsFormsApp2Collection\WindowsFormsApp2Collection.csproj", "{CC7B25D8-9464-4123-8A36-7C3EE67A2D0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
