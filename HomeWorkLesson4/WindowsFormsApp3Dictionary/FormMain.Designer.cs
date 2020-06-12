@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.labelHeader = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBoxLambda = new System.Windows.Forms.TextBox();
             this.buttonLambda = new System.Windows.Forms.Button();
+            this.textBoxLambda = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonDelegate = new System.Windows.Forms.Button();
             this.textBoxDelegate = new System.Windows.Forms.TextBox();
@@ -62,15 +62,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Обращение с использованием лямбда оператора =>";
             // 
-            // textBoxLambda
-            // 
-            this.textBoxLambda.Location = new System.Drawing.Point(143, 19);
-            this.textBoxLambda.Multiline = true;
-            this.textBoxLambda.Name = "textBoxLambda";
-            this.textBoxLambda.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxLambda.Size = new System.Drawing.Size(460, 126);
-            this.textBoxLambda.TabIndex = 5;
-            // 
             // buttonLambda
             // 
             this.buttonLambda.Location = new System.Drawing.Point(8, 19);
@@ -81,6 +72,15 @@
             this.buttonLambda.UseVisualStyleBackColor = true;
             this.buttonLambda.Click += new System.EventHandler(this.buttonLambda_Click);
             // 
+            // textBoxLambda
+            // 
+            this.textBoxLambda.Location = new System.Drawing.Point(143, 19);
+            this.textBoxLambda.Multiline = true;
+            this.textBoxLambda.Name = "textBoxLambda";
+            this.textBoxLambda.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxLambda.Size = new System.Drawing.Size(460, 126);
+            this.textBoxLambda.TabIndex = 5;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.buttonDelegate);
@@ -90,7 +90,7 @@
             this.groupBox2.Size = new System.Drawing.Size(614, 160);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Обращение с использованием лямбда оператора =>";
+            this.groupBox2.Text = "Обращение с использованием делегата";
             // 
             // buttonDelegate
             // 
@@ -115,7 +115,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(630, 415);
+            this.ClientSize = new System.Drawing.Size(630, 423);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelHeader);

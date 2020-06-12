@@ -55,7 +55,12 @@ namespace WindowsFormsApp3Dictionary
         }
         private void buttonDelegate_Click(object sender, EventArgs e)
         {
-
+            Func<KeyValuePair<string, int>, int> keySelector = delegate (KeyValuePair<string, int> pair) { return pair.Value; };
+            var dct = dict.OrderBy(keySelector);
+            StringBuilder sb = new StringBuilder();
+            foreach (var el in dct)
+                sb.AppendLine($"{el.Key} - {el.Value}");
+            textBoxDelegate.Text = sb.ToString();
         }
     }
 }
