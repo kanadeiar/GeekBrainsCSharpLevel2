@@ -32,6 +32,8 @@ namespace WindowsApp1Asteroids.Objects
         private float _currCadr = 0.0F;
         //скорость смещения кадров
         private float _cadrDir = -0.2F;
+        /// <summary> Команда удалить пулю </summary>
+        public bool DeleteMe { get; set; } = false;
         public Asteroid(Point pos, Point dir, Size size, int currentImage) : base(pos, dir, size)
         {
             _currentImage = currentImage;

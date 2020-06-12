@@ -6,10 +6,10 @@ namespace WindowsApp1Asteroids.Objects
     class Bullet :ObjBase
     {
         private static readonly Image _image = Image.FromFile(@"Images\Bullet.png");
+        /// <summary> Команда удалить пулю </summary>
+        public bool DeleteMe { get; set; } = false;
         public Bullet(Point pos, Point dir, Size size) : base(pos, dir, size)
         { }
-        /// <summary> Просьба удалить пулю </summary>
-        public bool DeleteMe { get; set; } = false;
         /// <summary> Обновление пули </summary>
         public override void Update()
         {

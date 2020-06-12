@@ -62,13 +62,15 @@ namespace WindowsApp1Asteroids
         /// <summary> Звезды на фоне </summary>
         private static ObjBase[] _fonStars;
         /// <summary> Астероиды </summary>
-        private static ObjBase[] _asteroids;
+        private static List<Asteroid> _asteroids;
+        private static int _countAsteroids = 8;
+        //private static ObjBase[] asteroids;
         /// <summary> Корабль </summary>
         private static Ship _ship;
         /// <summary> Пули </summary>
-        private static List<Bullet> bullets;
+        private static List<Bullet> _bullets;
         /// <summary> Аптечка </summary>
-        private static Energy energy;
+        private static Energy _energy;
         #endregion
         #region Методы-обработчики
         ///////////////////////////////////////////////////
@@ -100,17 +102,24 @@ namespace WindowsApp1Asteroids
                 pos.Y = Rand.Next(Size.Height - randSize);
                 _fonStars[i] = new Star(pos, new Point(-speed, 0), new Size(randSize, randSize));
             }
-            _asteroids = new Asteroid[10];
-            for (int i = 0; i < _asteroids.Length; i++)
+            //asteroids = new Asteroid[10];
+            //for (int i = 0; i < asteroids.Length; i++)
+            //{
+            //    pos.X = Size.Width + Rand.Next(Size.Width);
+            //    pos.Y = Rand.Next(Size.Height - 40);
+            //    asteroids[i] = new Asteroid(pos, new Point(-4, 0), new Size(40, 40), Rand.Next(Asteroid.CountImages) );
+            //}
+            _asteroids = new List<Asteroid>();
+            for (int i = 0; i < _countAsteroids; i++)
             {
                 pos.X = Size.Width + Rand.Next(Size.Width);
                 pos.Y = Rand.Next(Size.Height - 40);
-                _asteroids[i] = new Asteroid(pos, new Point(-4, 0), new Size(40, 40), Rand.Next(Asteroid.CountImages) );
+                _asteroids.Add(new Asteroid(pos, new Point(-4, 0), new Size(40,40), Rand.Next(Asteroid.CountImages) ));
             }
             _ship = new Ship(new Point(5, Game.Size.Height / 2), new Point(5,5), new Size(100,25));
             Ship.MessageGameOver += GameOver; //конец игры
-            bullets = new List<Bullet>();
-            energy = new Energy(new Point(Size.Width + Rand.Next(Size.Width - 30), Rand.Next(Size.Height - 30)), new Point(-4, 0), new Size(30, 30));
+            _bullets = new List<Bullet>();
+            _energy = new Energy(new Point(Size.Width + Rand.Next(Size.Width - 30), Rand.Next(Size.Height - 30)), new Point(-4, 0), new Size(30, 30));
 
         }
         /// <summary> Обновление состояния </summary>
@@ -121,41 +130,57 @@ namespace WindowsApp1Asteroids
                 _moveSpace = 0.0F;
             foreach (var star in _fonStars)
                 star.Update();
-            foreach (var asteroid in _asteroids)
+            for (int i = 0; i < _asteroids.Count; i++)
             {
-                asteroid.Update();
-                foreach (var bullet in bullets)
-                    if (asteroid.Collision(bullet))
+                foreach (var bullet in _bullets)
+                    if (_asteroids[i].Collision(bullet))
                     {
                         SystemSounds.Hand.Play();
-                        asteroid.Reset();
+                        _asteroids[i].DeleteMe = true;
                         bullet.DeleteMe = true;
                         _ship.Score++;
                         EventMessage("Пуля сбила астероид!");
                     }
-                if (asteroid.Collision(_ship))
+                if (_asteroids[i].Collision(_ship))
                 {
                     SystemSounds.Asterisk.Play();
-                    asteroid.Reset();
+                    _asteroids[i].DeleteMe = true;
                     _ship.Energy -= 10;
                     EventMessage("Астероид попал в корабль!");
                 }
-            }
-            _ship?.Update();
-            for (int i = 0; i < bullets.Count; i++)
-            {
-                if (bullets[i].DeleteMe)
+                if (_asteroids[i].DeleteMe)
                 {
-                    bullets.Remove(bullets[i]);
+                    _asteroids.Remove(_asteroids[i]);
                     continue;
                 }
-                bullets[i].Update();
+                _asteroids[i].Update();
             }
-            energy?.Update();
-            if (energy?.Collision(_ship) == true)
+            if (_asteroids.Count == 0)
+            {
+                _countAsteroids++;
+                for (int i = 0; i < _countAsteroids; i++)
+                {
+                    Point pos = new Point();
+                    pos.X = Size.Width + Rand.Next(Size.Width);
+                    pos.Y = Rand.Next(Size.Height - 40);
+                    _asteroids.Add(new Asteroid(pos, new Point(-4, 0), new Size(40,40), Rand.Next(Asteroid.CountImages) ));
+                }
+            }
+            _ship?.Update();
+            for (int i = 0; i < _bullets.Count; i++)
+            {
+                if (_bullets[i].DeleteMe)
+                {
+                    _bullets.Remove(_bullets[i]);
+                    continue;
+                }
+                _bullets[i].Update();
+            }
+            _energy?.Update();
+            if (_energy?.Collision(_ship) == true)
             {
                 SystemSounds.Exclamation.Play();
-                energy.Reset();
+                _energy.Reset();
                 _ship.Energy += 10;
                 if (_ship.Energy > 100)
                     _ship.Energy = 100;
@@ -180,9 +205,9 @@ namespace WindowsApp1Asteroids
                 _buffer.Graphics.DrawString($"Количество набранных очков: {_ship.Score}", new Font(FontFamily.GenericSansSerif, 14), Brushes.White, 650, 10);
                 _buffer.Graphics.DrawString($"Энергия: {_ship.Energy}%", new Font(FontFamily.GenericSansSerif, 14), Brushes.White, 10, 10);
             }
-            foreach (var bullet in bullets)
+            foreach (var bullet in _bullets)
                 bullet.Draw(_buffer.Graphics);
-            energy?.Draw(_buffer.Graphics);
+            _energy?.Draw(_buffer.Graphics);
 
             _buffer.Render();
         }
@@ -206,7 +231,7 @@ namespace WindowsApp1Asteroids
             if (e.KeyCode == Keys.ControlKey)
             {
                 Point pos = new Point(_ship.Rect.X + _ship.Rect.Width - 25, _ship.Rect.Y + 8);
-                bullets.Add(new Bullet(pos, new Point(6,0), new Size(18,5)));
+                _bullets.Add(new Bullet(pos, new Point(6,0), new Size(18,5)));
             }
         }
         private static void Form_KeyUp(object s, KeyEventArgs e)
