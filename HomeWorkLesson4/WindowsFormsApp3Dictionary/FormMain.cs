@@ -37,5 +37,25 @@ namespace WindowsFormsApp3Dictionary
             labelHeader.Text = "Методичка 4. Продвинутый курс C#. Объектно-ориентированное программирование. Часть 4.\n" +
                                "Задача 3. Работа со словарем.";
         }
+        private Dictionary<string, int> dict = new Dictionary<string, int>
+        {
+            {"two",2},
+            {"one",1},
+            {"three",3},
+            {"four",4},
+            {"five",5},
+        };
+        private void buttonLambda_Click(object sender, EventArgs e)
+        {
+            var dct = dict.OrderBy(n => n.Value);
+            StringBuilder sb = new StringBuilder();
+            foreach (var el in dct)
+                sb.AppendLine($"{el.Key} - {el.Value}");
+            textBoxLambda.Text = sb.ToString();
+        }
+        private void buttonDelegate_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

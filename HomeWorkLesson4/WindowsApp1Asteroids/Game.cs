@@ -102,13 +102,6 @@ namespace WindowsApp1Asteroids
                 pos.Y = Rand.Next(Size.Height - randSize);
                 _fonStars[i] = new Star(pos, new Point(-speed, 0), new Size(randSize, randSize));
             }
-            //asteroids = new Asteroid[10];
-            //for (int i = 0; i < asteroids.Length; i++)
-            //{
-            //    pos.X = Size.Width + Rand.Next(Size.Width);
-            //    pos.Y = Rand.Next(Size.Height - 40);
-            //    asteroids[i] = new Asteroid(pos, new Point(-4, 0), new Size(40, 40), Rand.Next(Asteroid.CountImages) );
-            //}
             _asteroids = new List<Asteroid>();
             for (int i = 0; i < _countAsteroids; i++)
             {
@@ -148,6 +141,9 @@ namespace WindowsApp1Asteroids
                     _ship.Energy -= 10;
                     EventMessage("Астероид попал в корабль!");
                 }
+            }
+            for (int i = 0; i < _asteroids.Count; i++)
+            {
                 if (_asteroids[i].DeleteMe)
                 {
                     _asteroids.Remove(_asteroids[i]);
