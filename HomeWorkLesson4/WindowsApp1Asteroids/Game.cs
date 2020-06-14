@@ -118,42 +118,49 @@ namespace WindowsApp1Asteroids
         /// <summary> Обновление состояния </summary>
         private static void Update()
         {
+            //перемещение заднего фона - картинки чуть-чуть
             _moveSpace += 0.2F;
             if (_moveSpace > space.Width)
                 _moveSpace = 0.0F;
+            //обновление всех звезд
             foreach (var star in _fonStars)
-                star.Update();
+                star.Update(); //обновление положения корабля
+            //обновление всех астероидов
             for (int i = 0; i < _asteroids.Count; i++)
             {
+                //обработка того, как пули сбивают астероиды
                 foreach (var bullet in _bullets)
                     if (_asteroids[i].Collision(bullet))
                     {
                         SystemSounds.Hand.Play();
-                        _asteroids[i].DeleteMe = true;
-                        bullet.DeleteMe = true;
-                        _ship.Score++;
+                        _asteroids[i].DeleteMe = true; //этот астероид - лишний
+                        bullet.DeleteMe = true; //эта пуля - лишняя
+                        _ship.Score++; //кол-во сбитых астероидов
                         EventMessage("Пуля сбила астероид!");
                     }
+                //отработка того, как астероид попадает в корабль
                 if (_asteroids[i].Collision(_ship))
                 {
                     SystemSounds.Asterisk.Play();
-                    _asteroids[i].DeleteMe = true;
-                    _ship.Energy -= 10;
+                    _asteroids[i].DeleteMe = true; //этот астероид теперь лишний
+                    _ship.Energy -= 10; //потеря энергии в корабле
                     EventMessage("Астероид попал в корабль!");
                 }
             }
-            for (int i = 0; i < _asteroids.Count; i++)
+            //удаление всех ненужных астероидов
+            for (int i = _asteroids.Count - 1; i >= 0; i--)
             {
-                if (_asteroids[i].DeleteMe)
+                if (_asteroids[i].DeleteMe) //астероид ненужен больше
                 {
                     _asteroids.Remove(_asteroids[i]);
                     continue;
                 }
-                _asteroids[i].Update();
+                _asteroids[i].Update(); //обновление положения астероидов
             }
+            //кончились астероиды? - добавить выводок новых!
             if (_asteroids.Count == 0)
             {
-                _countAsteroids++;
+                _countAsteroids++; //побольше астероидов
                 for (int i = 0; i < _countAsteroids; i++)
                 {
                     Point pos = new Point();
@@ -162,27 +169,29 @@ namespace WindowsApp1Asteroids
                     _asteroids.Add(new Asteroid(pos, new Point(-4, 0), new Size(40,40), Rand.Next(Asteroid.CountImages) ));
                 }
             }
-            _ship?.Update();
-            for (int i = 0; i < _bullets.Count; i++)
+            _ship?.Update(); //обновление корабля
+            //удаление всех ненужных больше пуль
+            for (int i = _bullets.Count - 1; i >= 0; i--)
             {
-                if (_bullets[i].DeleteMe)
+                if (_bullets[i].DeleteMe) //пуля больше не нужна
                 {
                     _bullets.Remove(_bullets[i]);
                     continue;
                 }
-                _bullets[i].Update();
+                _bullets[i].Update(); //обновление положения всех пуль
             }
-            _energy?.Update();
-            if (_energy?.Collision(_ship) == true)
+            //обработка того, что корабль поймал аптечку
+            if (_energy?.Collision(_ship) == true) 
             {
                 SystemSounds.Exclamation.Play();
-                _energy.Reset();
-                _ship.Energy += 10;
-                if (_ship.Energy > 100)
+                _energy.Reset(); //аптечку выкинуть на новое место
+                _ship.Energy += 10; //подлечим корабль
+                if (_ship.Energy > 100) //не слишком сильно лечим
                     _ship.Energy = 100;
                 EventMessage("Корабль подлечился!");
             }
-
+            _energy?.Update(); //обновление аптечки
+            //обработка того, что корабль погиб
             if (_ship?.Energy <= 0)
                 _ship?.Reset();
         }
