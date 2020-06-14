@@ -10,6 +10,11 @@
             <Setter Property="Control.Cursor" Value="14"/>
             <Setter Property="Control.Margin" Value="5"/>
             <Setter Property="Control.Height" Value="30"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderThickness" Value="3"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
         
 

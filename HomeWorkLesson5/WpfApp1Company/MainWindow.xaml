@@ -16,20 +16,33 @@
             <TextBlock Text="WPF-приложение для учёта сотрудников компании."
                        Height="40" FontSize="20" HorizontalAlignment="Center"/>
         </Grid>
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" 
-                    Background="LightSeaGreen">
-            <Button Content="Добавить нового"/>
-            <Button Content="Запомнить изменения"/>
-            <Button Content="Удалить выбранного"/>
-            <Button Content="Редактировать департаменты"/>
-        </StackPanel>
+        <Grid DockPanel.Dock="Bottom" Background="LightSeaGreen">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Редактировать департаменты"/>
+            <Button Grid.Column="1" Content="Добавить нового"/>
+            <Button Grid.Column="2" Content="Запомнить"/>
+            <Button Grid.Column="3" Content="Удалить"/>
+        </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ResizeGrip Grid.Column="0" Width="3" HorizontalAlignment="Right"/>
+            <GridSplitter Grid.Column="0" Width="5"/>
+            <GroupBox Grid.Column="0" Header="Список всех сотрудников:" Margin="0,0,5,0">
+                <ScrollViewer Margin="3">
+                    <ListBox x:Name="listBoxEmployees" SelectionMode="Single">
+                    </ListBox>
+                </ScrollViewer>
+            </GroupBox>
+            <GroupBox Grid.Column="1" Header="Сведения о сотруднике:">
 
+            </GroupBox>
         </Grid>
 
         
