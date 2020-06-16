@@ -33,6 +33,13 @@ namespace WpfApp1Company
         {
             InitializeComponent();
             _company = new Company("Камянецкий и Ко.");
+        }
+        private readonly Company _company;
+
+        #region Обработчики событий формы
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
             textCompanyName.Text = $"Название компании: \"{_company.Name}\"";
             (_company.Departments, _company.Employees) = Company.GetSamples();
             DrawEmployersToForm(_company.Employees, listBoxEmployees);
@@ -40,10 +47,6 @@ namespace WpfApp1Company
             DrawDetailEmployeeToForm(_company.Employees, _company.Departments, listBoxEmployees.SelectedIndex, 
                 textBoxFam, textBoxName, textBoxAge, textBoxSalary, comboBoxDepartment);
         }
-        private readonly Company _company;
-
-        #region Обработчики событий формы
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private void ListBoxEmployees_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DrawDetailEmployeeToForm(_company.Employees, _company.Departments, listBoxEmployees.SelectedIndex, 
@@ -67,7 +70,14 @@ namespace WpfApp1Company
         }
         private void ButtonEditDeps_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            DepsEditWindow depsEditWindow = new DepsEditWindow();
+            depsEditWindow.Departments = _company.Departments;
+            bool? result = depsEditWindow.ShowDialog();
+            if (result == true)
+            {
+                _company.Departments = depsEditWindow.Departments;
+                DrawDepsToForm(_company.Departments, comboBoxDepartment);
+            }
         }
         #endregion
 
@@ -202,6 +212,7 @@ namespace WpfApp1Company
             employees.RemoveAt(index);
         }
         #endregion
-        
+
+
     }
 }

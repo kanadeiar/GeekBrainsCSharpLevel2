@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1Company"
         mc:Ignorable="d"
-        Title="Методичка 5. Продвинутый курс C#. Знакомство с технологией WPF." Height="500" MinHeight="200" 
+        Title="Методичка 5. Продвинутый курс C#. Знакомство с технологией WPF." Height="500" MinHeight="200" Loaded="MainWindow_OnLoaded"
         Width="700" MinWidth="300" WindowStartupLocation="CenterScreen" Background="AliceBlue" Icon="Avatar.ico">
     <Window.Resources>
     </Window.Resources>

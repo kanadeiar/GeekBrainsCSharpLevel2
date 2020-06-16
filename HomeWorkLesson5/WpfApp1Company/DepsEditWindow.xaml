@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfApp1Company"
         mc:Ignorable="d"
         Title="Редактирование отделов комании" Height="400" MinHeight="200" Width="500" MinWidth="300" 
-        Background="Cornsilk" Icon="Avatar.ico">
+        Loaded="DepsEditWindow_OnLoaded" Background="Cornsilk" Icon="Avatar.ico" WindowStartupLocation="CenterScreen">
     <Window.Resources>
     </Window.Resources>
     <DockPanel LastChildFill="True">
