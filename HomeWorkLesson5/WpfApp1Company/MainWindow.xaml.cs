@@ -65,6 +65,10 @@ namespace WpfApp1Company
             EmployeeDeleteSelect(_company.Employees, listBoxEmployees.SelectedIndex);
             DrawEmployersToForm(_company.Employees, listBoxEmployees);
         }
+        private void ButtonEditDeps_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
         #endregion
 
         #region Сопровождение формы
@@ -198,10 +202,6 @@ namespace WpfApp1Company
             employees.RemoveAt(index);
         }
         #endregion
-
-        private void ButtonEditDeps_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
