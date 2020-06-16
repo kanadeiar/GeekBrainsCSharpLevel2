@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace WpfApp1Company.Objects
 {
     /// <summary> Отдел </summary>
-    class Departament
+    public class Departament
     {
         /// <summary> Идентификатор </summary>
         public int Id { get; set; }

@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1Company"
         mc:Ignorable="d"
-        Title="Методичка 5. Продвинутый курс C#. Знакомство с технологией WPF." 
-        Height="500" MinHeight="200" Width="700" MinWidth="300" 
-        WindowStartupLocation="CenterScreen" Background="AliceBlue">
+        Title="Методичка 5. Продвинутый курс C#. Знакомство с технологией WPF." Height="500" MinHeight="200" 
+        Width="700" MinWidth="300" WindowStartupLocation="CenterScreen" Background="AliceBlue">
     <Window.Resources>
     </Window.Resources>
     <DockPanel LastChildFill="True">
@@ -16,10 +15,10 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="WPF-приложение для учёта сотрудников компании"
-                       Height="30" FontSize="20" HorizontalAlignment="Center"/>
-            <TextBlock x:Name="textCompanyName" Grid.Row="1" Text="[название компании]"
-                       Height="30" FontSize="20" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Text="WPF-приложение для учёта сотрудников компании" Height="30" FontSize="20" 
+                       HorizontalAlignment="Center"/>
+            <TextBlock x:Name="textCompanyName" Grid.Row="1" Text="[название компании]" Height="30" FontSize="20" 
+                       HorizontalAlignment="Center"/>
         </Grid>
         <Grid DockPanel.Dock="Bottom" Background="LightSeaGreen">
             <Grid.ColumnDefinitions>
@@ -35,10 +34,10 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <GridSplitter Grid.Column="0" Width="5"/>
+            <GridSplitter Grid.Column="0" Width="5" Background="PaleGreen"/>
             <GroupBox Grid.Column="0" Header="Список всех сотрудников:" Margin="0,0,5,0">
                 <ScrollViewer Margin="3">
-                    <ListBox x:Name="listBoxEmployees" SelectionMode="Single">
+                    <ListBox x:Name="listBoxEmployees" SelectionMode="Single" FontSize="14">
                     </ListBox>
                 </ScrollViewer>
             </GroupBox>
@@ -65,8 +64,8 @@
                     <TextBox x:Name="textBoxAge" Grid.Column="1" Grid.Row="2" FontSize="18" Margin="3"/>
                     <TextBlock Grid.Column="0" Grid.Row="3" FontSize="14" Margin="3">Зарплата:</TextBlock>
                     <TextBox x:Name="textBoxSalary" Grid.Column="1" Grid.Row="3" FontSize="18" Margin="3"/>
-                    <TextBlock Grid.Column="0" Grid.Row="4" FontSize="14" Margin="3">Возраст:</TextBlock>
-                    <TextBox x:Name="textBoxDepartament" Grid.Column="1" Grid.Row="4" FontSize="18" Margin="3"/>
+                    <TextBlock Grid.Column="0" Grid.Row="4" FontSize="14" Margin="3">Отдел:</TextBlock>
+                    <ComboBox x:Name="comboBoxDepartament" Grid.Column="1" Grid.Row="4" FontSize="14" Margin="3"/>
                     <Grid Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>

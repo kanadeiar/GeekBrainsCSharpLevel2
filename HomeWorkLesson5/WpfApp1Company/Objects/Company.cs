@@ -9,7 +9,7 @@ namespace WpfApp1Company.Objects
     /// <summary>
     /// Компания
     /// </summary>
-    class Company
+    public class Company
     {
         /// <summary> Название </summary>
         public string Name { get; set; }
@@ -40,7 +40,5 @@ namespace WpfApp1Company.Objects
             Departaments = new List<Departament>();
             Employees = new List<Employee>();
         }
-
-
     }
 }

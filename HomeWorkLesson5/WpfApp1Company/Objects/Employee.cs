@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace WpfApp1Company.Objects
 {
     /// <summary> Сотрудник компании </summary>
-    class Employee
+    public class Employee
     {
         /// <summary> Фамилия </summary>
         public string Fam { get; set; }
