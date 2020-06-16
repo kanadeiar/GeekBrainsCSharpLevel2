@@ -1,6 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 using WpfApp1Company.Objects;
 
 namespace WpfApp1Company
@@ -27,10 +32,31 @@ namespace WpfApp1Company
         public MainWindow()
         {
             InitializeComponent();
-            Company company = new Company("Пупкин и Ко.");
-            (company.Departaments, company.Employees) = Company.GetSamples();
-            DrawEmployersToForm(company.Employees, listBoxEmployees);
-            DrawDepsToForm(company.Departaments, comboBoxDepartament);
+            _company = new Company("Пупкин и Ко.");
+            (_company.Departments, _company.Employees) = Company.GetSamples();
+            DrawEmployersToForm(_company.Employees, listBoxEmployees);
+            DrawDepsToForm(_company.Departments, comboBoxDepartment);
+            DrawDetailEmployeeToForm(_company.Employees, _company.Departments, listBoxEmployees.SelectedIndex, textBoxFam, textBoxName, textBoxAge, textBoxSalary, comboBoxDepartment);
+        }
+        private readonly Company _company;
+        private void ListBoxEmployees_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DrawDetailEmployeeToForm(_company.Employees, _company.Departments, listBoxEmployees.SelectedIndex, textBoxFam, textBoxName, textBoxAge, textBoxSalary, comboBoxDepartment);
+        } private void ButtonAddEmp_OnClick(object sender, RoutedEventArgs e)
+        {
+            EmployeeAddEmpty(_company.Employees);
+            DrawEmployersToForm(_company.Employees, listBoxEmployees);
+            listBoxEmployees.SelectedIndex = _company.Employees.Count - 1;
+        }
+        private void ButtonEditEmp_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+            DrawEmployersToForm(_company.Employees, listBoxEmployees);
+        }
+        private void ButtonDelEmp_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+            DrawEmployersToForm(_company.Employees, listBoxEmployees);
         }
 
         /// <summary> Вывод сотрудников на форму </summary>
@@ -48,33 +74,74 @@ namespace WpfApp1Company
                 selectorEmployees.SelectedIndex = employees.Count - 1;
         }
         /// <summary> Вывод отделов на форму </summary>
-        /// <param name="departaments">отделы</param>
+        /// <param name="departments">отделы</param>
         /// <param name="selectorDepartaments">Элемент формы</param>
-        private static void DrawDepsToForm(IList<Departament> departaments, Selector selectorDepartaments)
+        private static void DrawDepsToForm(IList<Departament> departments, Selector selectorDepartaments)
         {
             int tmp = selectorDepartaments.SelectedIndex;
             selectorDepartaments.Items.Clear();
-            foreach (var el in departaments)
+            foreach (var el in departments)
                 selectorDepartaments.Items.Add($"{el.Name}");
-            if (tmp < departaments.Count)
+            if (tmp < departments.Count)
                 selectorDepartaments.SelectedIndex = tmp;
             else
-                selectorDepartaments.SelectedIndex = departaments.Count - 1;
+                selectorDepartaments.SelectedIndex = departments.Count - 1;
         }
         /// <summary> Вывод детальный сотрудника на форму </summary>
-        /// <param name="employees"></param>
-        /// <param name="departaments"></param>
-        /// <param name="selectedIndexEmployee"></param>
-        /// <param name="textFam"></param>
-        /// <param name="textName"></param>
-        /// <param name="textAge"></param>
-        /// <param name="textSalary"></param>
-        /// <param name="selectorDepartaments"></param>
-        private static void DrawDetailEmployeeToForm(IList<Employee> employees, IList<Departament> departaments,
-            int selectedIndexEmployee, TextBoxBase textFam, TextBoxBase textName, TextBoxBase textAge,
-            TextBoxBase textSalary, Selector selectorDepartaments)
+        /// <param name="employees">сотрудники</param>
+        /// <param name="departments">отделы</param>
+        /// <param name="selectedIndexEmployee">номер выбранного сотрудника</param>
+        /// <param name="textFam">фамилия</param>
+        /// <param name="textName">имя</param>
+        /// <param name="textAge">возраст</param>
+        /// <param name="textSalary">зарплата</param>
+        /// <param name="selectorDepartments">отдел</param>
+        private static void DrawDetailEmployeeToForm(IList<Employee> employees, IList<Departament> departments,
+            int selectedIndexEmployee, TextBox textFam, TextBox textName, TextBox textAge, TextBox textSalary, 
+            Selector selectorDepartments)
         {
+            int index = selectedIndexEmployee;
+            if (index > employees.Count)
+                throw new ApplicationException("Индекс selectedIndexEmployee вне диапазона!");
+            if (index == -1)
+            {
+                textFam.Text = string.Empty;
+                textName.Text = string.Empty;
+                textAge.Text = "0";
+                textSalary.Text = "0";
+                selectorDepartments.SelectedIndex = -1;
+                return;
+            }
+            textFam.Text = employees[index].Fam;
+            textName.Text = employees[index].Name;
+            textAge.Text = employees[index].Age.ToString();
+            textSalary.Text = employees[index].Salary.ToString(CultureInfo.InvariantCulture);
+            if (employees[index].IdDepartament != -1)
+            {
+                var dep = departments
+                    .First(d => d.Id == employees[index].IdDepartament);
+                if (dep is Departament department)
+                    selectorDepartments.SelectedIndex = departments.IndexOf(department);
+                else
+                    throw new ApplicationException("Элемент employees[index].IdDepartament в departments не найден!");
+            }
+            else
+                selectorDepartments.SelectedIndex = -1;
+        }
 
+        private static void EmployeeAddEmpty(IList<Employee> employees)
+        {
+            employees.Add
+            (
+                new Employee
+                {
+                    Fam = "",
+                    Name = "",
+                    Age = 18,
+                    Salary = 5000.0F,
+                    IdDepartament = -1,
+                }
+            );
         }
 
     }
