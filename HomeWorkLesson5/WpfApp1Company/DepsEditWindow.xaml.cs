@@ -15,9 +15,11 @@ namespace WpfApp1Company
     public partial class DepsEditWindow : Window
     {
         public List<Departament> Departments { get; set; }
-        public DepsEditWindow()
+        private List<Employee> _employees;
+        public DepsEditWindow(List<Employee> employees)
         {
             InitializeComponent();
+            this._employees = employees;
         }
         //Результат выполнения - что-то изменилось
         private static bool dialogRes = false;
@@ -41,7 +43,8 @@ namespace WpfApp1Company
         }
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
         {
-            
+            DepDeleteSelect(Departments, _employees, listBoxDepartments.SelectedIndex);
+            DrawDepsToForm(Departments, listBoxDepartments);
             dialogRes = true;
         }
         private void buttonClose_Click(object sender, RoutedEventArgs e)
@@ -105,11 +108,27 @@ namespace WpfApp1Company
                 "Редактирование отдела", currentName);
             departaments[selectedIndexDepartment].Name = currentName;
         }
-
-
-
+        /// <summary> Удаление отдела </summary>
+        /// <param name="departaments">отделы</param>
+        /// <param name="employees">сотрудники</param>
+        /// <param name="selectedIndexDepartment">выделенный отдел</param>
+        public static void DepDeleteSelect(IList<Departament> departaments, IList<Employee> employees, int selectedIndexDepartment)
+        {
+            int index = selectedIndexDepartment;
+            if (index > departaments.Count)
+                throw new ApplicationException("Индекс selectedIndexDepartment вне диапазона!");
+            if (index == -1)
+                return;
+            var countCurrent = employees.Count(e => e.IdDepartament == departaments[index].Id);
+            if (countCurrent > 0)
+            {
+                SystemSounds.Hand.Play();
+                MessageBox.Show("Невозможно удалить отдел, в котором состоят несколько сотрудников.\n"+$"В департамене {departaments[index].Name} все еще сотоят {countCurrent} сотрудников");
+                return;
+            }
+            departaments.RemoveAt(index);
+        }
         #endregion
-
 
     }
 }

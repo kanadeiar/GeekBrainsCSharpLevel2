@@ -70,8 +70,9 @@ namespace WpfApp1Company
         }
         private void ButtonEditDeps_OnClick(object sender, RoutedEventArgs e)
         {
-            DepsEditWindow depsEditWindow = new DepsEditWindow();
+            DepsEditWindow depsEditWindow = new DepsEditWindow(_company.Employees);
             depsEditWindow.Departments = _company.Departments;
+            depsEditWindow.Owner = this;
             bool? result = depsEditWindow.ShowDialog();
             if (result == true)
             {
