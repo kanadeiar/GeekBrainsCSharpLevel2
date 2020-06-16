@@ -9,7 +9,6 @@
         Height="500" MinHeight="200" Width="700" MinWidth="300" 
         WindowStartupLocation="CenterScreen" Background="AliceBlue">
     <Window.Resources>
-
     </Window.Resources>
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top" Background="PaleGreen">
@@ -24,9 +23,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Content="Редактировать департаменты"/>
-            <Button Grid.Column="1" Content="Добавить нового"/>
-            <Button Grid.Column="2" Content="Запомнить"/>
-            <Button Grid.Column="3" Content="Удалить"/>
+
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -41,10 +38,42 @@
                 </ScrollViewer>
             </GroupBox>
             <GroupBox Grid.Column="1" Header="Сведения о сотруднике:">
-
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" FontSize="14" Margin="3">Фамилия:</TextBlock>
+                    <TextBox x:Name="textBoxFam" Grid.Column="1" Grid.Row="0" FontSize="18" Margin="3"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" FontSize="14" Margin="3">Имя:</TextBlock>
+                    <TextBox x:Name="textBoxName" Grid.Column="1" Grid.Row="1" FontSize="18" Margin="3"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" FontSize="14" Margin="3">Возраст:</TextBlock>
+                    <TextBox x:Name="textBoxAge" Grid.Column="1" Grid.Row="2" FontSize="18" Margin="3"/>
+                    <TextBlock Grid.Column="0" Grid.Row="3" FontSize="14" Margin="3">Зарплата:</TextBlock>
+                    <TextBox x:Name="textBoxSalary" Grid.Column="1" Grid.Row="3" FontSize="18" Margin="3"/>
+                    <TextBlock Grid.Column="0" Grid.Row="4" FontSize="14" Margin="3">Возраст:</TextBlock>
+                    <TextBox x:Name="textBoxDepartament" Grid.Column="1" Grid.Row="4" FontSize="18" Margin="3"/>
+                    <Grid Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Добавить"/>
+                        <Button Grid.Column="1" Content="Сохранить"/>
+                        <Button Grid.Column="2" Content="Удалить"/>
+                    </Grid>
+                </Grid>
             </GroupBox>
         </Grid>
-
-        
     </DockPanel>
 </Window>
