@@ -32,16 +32,19 @@ namespace WpfApp1Company
         public MainWindow()
         {
             InitializeComponent();
-            _company = new Company("Пупкин и Ко.");
+            _company = new Company("Пупкин и Друзья.");
+            textCompanyName.Text = $"\"{_company.Name}\"";
             (_company.Departments, _company.Employees) = Company.GetSamples();
             DrawEmployersToForm(_company.Employees, listBoxEmployees);
             DrawDepsToForm(_company.Departments, comboBoxDepartment);
-            DrawDetailEmployeeToForm(_company.Employees, _company.Departments, listBoxEmployees.SelectedIndex, textBoxFam, textBoxName, textBoxAge, textBoxSalary, comboBoxDepartment);
+            DrawDetailEmployeeToForm(_company.Employees, _company.Departments, listBoxEmployees.SelectedIndex, 
+                textBoxFam, textBoxName, textBoxAge, textBoxSalary, comboBoxDepartment);
         }
         private readonly Company _company;
         private void ListBoxEmployees_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DrawDetailEmployeeToForm(_company.Employees, _company.Departments, listBoxEmployees.SelectedIndex, textBoxFam, textBoxName, textBoxAge, textBoxSalary, comboBoxDepartment);
+            DrawDetailEmployeeToForm(_company.Employees, _company.Departments, listBoxEmployees.SelectedIndex, 
+                textBoxFam, textBoxName, textBoxAge, textBoxSalary, comboBoxDepartment);
         } private void ButtonAddEmp_OnClick(object sender, RoutedEventArgs e)
         {
             EmployeeAddEmpty(_company.Employees);
@@ -50,7 +53,8 @@ namespace WpfApp1Company
         }
         private void ButtonEditEmp_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            EmployeeSaveEdit(_company.Employees, _company.Departments, listBoxEmployees.SelectedIndex, 
+                textBoxFam, textBoxName, textBoxAge, textBoxSalary, comboBoxDepartment.SelectedIndex);
             DrawEmployersToForm(_company.Employees, listBoxEmployees);
         }
         private void ButtonDelEmp_OnClick(object sender, RoutedEventArgs e)
@@ -128,7 +132,8 @@ namespace WpfApp1Company
             else
                 selectorDepartments.SelectedIndex = -1;
         }
-
+        /// <summary> Добавление нового сотрудника </summary>
+        /// <param name="employees">сотрудники</param>
         private static void EmployeeAddEmpty(IList<Employee> employees)
         {
             employees.Add
@@ -143,6 +148,39 @@ namespace WpfApp1Company
                 }
             );
         }
+        /// <summary> Сохранение изменений у сотрудника </summary>
+        /// <param name="employees">сотрудники</param>
+        /// <param name="departments">отделы</param>
+        /// <param name="selectedIndexEmployee">выбранный сотрудник</param>
+        /// <param name="textFam">фамилия</param>
+        /// <param name="textName">имя</param>
+        /// <param name="textAge">возраст</param>
+        /// <param name="textSalary">зарплата</param>
+        /// <param name="selectedIndexDepartment">отдел</param>
+        private static void EmployeeSaveEdit(IList<Employee> employees, IList<Departament> departments, 
+            int selectedIndexEmployee, TextBox textFam, TextBox textName, TextBox textAge, TextBox textSalary, 
+            int selectedIndexDepartment)
+        {
+            int index = selectedIndexEmployee;
+            if (index > employees.Count)
+                throw new ApplicationException("Индекс selectedIndexEmployee вне диапазона!");
+            if (index == -1)
+                return;
+            employees[index].Fam = textFam.Text;
+            employees[index].Name = textName.Text;
+            if (int.TryParse(textAge.Text, out var tage))
+                employees[index].Age = tage;
+            else 
+                throw new ApplicationException("Значение возраста должно быть числом!");
+            if (double.TryParse(textSalary.Text, out var tsalary))
+                employees[index].Salary = tsalary;
+            else 
+                throw new ApplicationException("Значение зарплаты должно быть вещественным числом");
+            if (selectedIndexDepartment != -1)
+                employees[index].IdDepartament = departments[selectedIndexDepartment].Id;
+        }
+
+
 
     }
 }
