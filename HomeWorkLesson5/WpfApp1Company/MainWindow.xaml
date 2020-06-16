@@ -12,8 +12,14 @@
     </Window.Resources>
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top" Background="PaleGreen">
-            <TextBlock Text="WPF-приложение для учёта сотрудников компании."
-                       Height="40" FontSize="20" HorizontalAlignment="Center"/>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="WPF-приложение для учёта сотрудников компании"
+                       Height="30" FontSize="20" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="textCompanyName" Grid.Row="1" Text="[название компании]"
+                       Height="30" FontSize="20" HorizontalAlignment="Center"/>
         </Grid>
         <Grid DockPanel.Dock="Bottom" Background="LightSeaGreen">
             <Grid.ColumnDefinitions>
@@ -22,8 +28,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Редактировать департаменты"/>
-
+            <Button Grid.Column="0" x:Name="buttonEditDeps" Content="Редактировать департаменты"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -68,9 +73,9 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="Добавить"/>
-                        <Button Grid.Column="1" Content="Сохранить"/>
-                        <Button Grid.Column="2" Content="Удалить"/>
+                        <Button Grid.Column="0" x:Name="buttonAddEmp" Content="Добавить"/>
+                        <Button Grid.Column="1" x:Name="buttonEditEmp" Content="Сохранить"/>
+                        <Button Grid.Column="2" x:Name="buttonDelEmp" Content="Удалить"/>
                     </Grid>
                 </Grid>
             </GroupBox>

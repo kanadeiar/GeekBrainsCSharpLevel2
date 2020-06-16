@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1Company.Objects;
 
 namespace WpfApp1Company
 {
@@ -41,6 +42,10 @@ namespace WpfApp1Company
         public MainWindow()
         {
             InitializeComponent();
+            Company company = new Company("Пупкин и Ко.");
+            (company.Departaments, company.Employees) = Company.GetSamples();
+
+
         }
     }
 }
