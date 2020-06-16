@@ -32,8 +32,8 @@ namespace WpfApp1Company
         public MainWindow()
         {
             InitializeComponent();
-            _company = new Company("Пупкин и Друзья.");
-            textCompanyName.Text = $"\"{_company.Name}\"";
+            _company = new Company("Камянецкий и Ко.");
+            textCompanyName.Text = $"Название компании: \"{_company.Name}\"";
             (_company.Departments, _company.Employees) = Company.GetSamples();
             DrawEmployersToForm(_company.Employees, listBoxEmployees);
             DrawDepsToForm(_company.Departments, comboBoxDepartment);
@@ -41,6 +41,9 @@ namespace WpfApp1Company
                 textBoxFam, textBoxName, textBoxAge, textBoxSalary, comboBoxDepartment);
         }
         private readonly Company _company;
+
+        #region Обработчики событий формы
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private void ListBoxEmployees_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DrawDetailEmployeeToForm(_company.Employees, _company.Departments, listBoxEmployees.SelectedIndex, 
@@ -59,10 +62,13 @@ namespace WpfApp1Company
         }
         private void ButtonDelEmp_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            EmployeeDeleteSelect(_company.Employees, listBoxEmployees.SelectedIndex);
             DrawEmployersToForm(_company.Employees, listBoxEmployees);
         }
+        #endregion
 
+        #region Сопровождение формы
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary> Вывод сотрудников на форму </summary>
         /// <param name="employees">Сотрудники</param>
         /// <param name="selectorEmployees">Элемент формы</param>
@@ -179,8 +185,23 @@ namespace WpfApp1Company
             if (selectedIndexDepartment != -1)
                 employees[index].IdDepartament = departments[selectedIndexDepartment].Id;
         }
+        /// <summary> Удаление выбранного сорудника </summary>
+        /// <param name="employees">сотрудники</param>
+        /// <param name="selectedIndexEmployee">выбранный</param>
+        private static void EmployeeDeleteSelect(IList<Employee> employees, int selectedIndexEmployee)
+        {
+            int index = selectedIndexEmployee;
+            if (index > employees.Count)
+                throw new ApplicationException("Индекс selectedIndexEmployee вне диапазона!");
+            if (index == -1)
+                return;
+            employees.RemoveAt(index);
+        }
+        #endregion
 
-
-
+        private void ButtonEditDeps_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
