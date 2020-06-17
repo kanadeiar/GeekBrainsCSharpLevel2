@@ -3,11 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1Company"
+        xmlns:l="clr-namespace:WpfApp1Company"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Методичка 6. Продвинутый курс C#. Связывание данных. Триггеры." Loaded="MainWindow_OnLoaded" Height="500" 
-        MinHeight="300" Width="700" MinWidth="400" WindowStartupLocation="CenterScreen" Background="Azure" Icon="Avatar.ico" ResizeMode="CanResizeWithGrip">
+        MinHeight="300" Width="700" MinWidth="400" WindowStartupLocation="CenterScreen" Background="Azure" 
+        Icon="Avatar.ico" ResizeMode="CanResizeWithGrip">
     <Window.Resources>
+        <x:Array x:Key="depsTest" Type="sys:String">
+            <sys:String>Первый отдел</sys:String>
+            <sys:String>Второй отдел</sys:String>
+        </x:Array>
     </Window.Resources>
     <DockPanel LastChildFill="True">
         <Menu DockPanel.Dock="Top" FontSize="14">
@@ -23,25 +29,21 @@
             </MenuItem>
         </Menu>
         <Grid DockPanel.Dock="Top" Background="PaleGreen">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="Приложение WPF учета сотрудников компании с привязками" Height="30" FontSize="20" HorizontalAlignment="Center"/>
-            <TextBlock Grid.Row="1" Text="[название компании]" Height="30" FontSize="20" FontWeight="Black" HorizontalAlignment="Center"/>
+            <TextBlock Text="Приложение WPF учета сотрудников компании с привязками" Height="30" FontSize="20" 
+                       HorizontalAlignment="Center" Margin="5"/>
         </Grid>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <ToolBar FontSize="14">
                 <TextBlock Text="Отдел:" VerticalAlignment="Center"/>
-                <Button FontSize="14" Margin="2" BorderBrush="Silver">Добавить</Button>
-                <Button FontSize="14" Margin="2" BorderBrush="Silver">Редактировать</Button>
-                <Button FontSize="14" Margin="2" BorderBrush="Silver">Расформировать</Button>
+                <Button Style="{StaticResource ButtonMenu}">Добавить</Button>
+                <Button Style="{StaticResource ButtonMenu}">Редактировать</Button>
+                <Button Style="{StaticResource ButtonMenu}">Удалить</Button>
             </ToolBar>
             <ToolBar FontSize="14">
                 <TextBlock Text="Сотрудник отдела:" VerticalAlignment="Center"/>
-                <Button FontSize="14" Margin="2" BorderBrush="Silver">Внести</Button>
-                <Button FontSize="14" Margin="2" BorderBrush="Silver">Изменить</Button>
-                <Button FontSize="14" Margin="2" BorderBrush="Silver">Уволить</Button>
+                <Button Style="{StaticResource ButtonMenu}">Внести</Button>
+                <Button Style="{StaticResource ButtonMenu}">Изменить</Button>
+                <Button Style="{StaticResource ButtonMenu}">Уволить</Button>
             </ToolBar>
         </StackPanel>
         <StatusBar DockPanel.Dock="Bottom">
@@ -58,7 +60,7 @@
             <GroupBox Grid.Column="0" Header="Отделы компании:" Margin="0,0,5,0" FontSize="14">
                 <Grid>
                     <ScrollViewer Margin="3">
-                        <ListView>
+                        <ListView ItemsSource="{StaticResource depsTest}">
 
                         </ListView>
                     </ScrollViewer>
@@ -79,7 +81,7 @@
                         <TextBlock Text="[Отдел]" Grid.Column="1" FontWeight="Black" FontSize="14"></TextBlock>
                     </Grid>
                     <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="3">
-                        <ListView>
+                        <ListView ItemsSource="{StaticResource depsTest}">
 
                         </ListView>
                     </ScrollViewer>

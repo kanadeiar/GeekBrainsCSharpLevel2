@@ -4,6 +4,21 @@
              xmlns:local="clr-namespace:WpfApp1Company"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <LinearGradientBrush x:Key="BrushButtonMenu" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFC3C3C3" Offset="0"/>
+            <GradientStop Color="White" Offset="0.524"/>
+            <GradientStop Color="#FFC9C7C7" Offset="1"/>
+        </LinearGradientBrush>
+        <Style x:Key="ButtonMenu">
+            <Setter Property="Control.FontSize" Value="14"/>
+            <Setter Property="Control.Margin" Value="3"/>
+            <Setter Property="Control.BorderBrush" Value="Gray"/>
+            <Setter Property="Control.Background" Value="{StaticResource BrushButtonMenu}"/>
+            <Style.Triggers>
+                <Trigger Property="Control.IsMouseOver" Value="True">
+                    <Setter Property="Control.Foreground" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>
