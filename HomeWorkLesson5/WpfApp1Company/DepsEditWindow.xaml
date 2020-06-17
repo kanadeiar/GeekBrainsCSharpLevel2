@@ -1,0 +1,32 @@
+﻿<Window x:Class="WpfApp1Company.DepsEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1Company"
+        mc:Ignorable="d"
+        Title="Редактирование отделов комании" Height="400" MinHeight="200" Width="500" MinWidth="300" 
+        Loaded="DepsEditWindow_OnLoaded" Background="Cornsilk" Icon="Avatar.ico" WindowStartupLocation="CenterScreen" ShowInTaskbar="False">
+    <Window.Resources>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" x:Name="buttonAdd" Click="buttonAdd_Click">Добавить</Button>
+            <Button Grid.Column="1" x:Name="buttonEdit" Click="buttonEdit_Click">Переименовать</Button>
+            <Button Grid.Column="2" x:Name="buttonDelete" Click="buttonDelete_Click">Удалить</Button>
+            <Button Grid.Column="3" x:Name="buttonClose" Click="buttonClose_Click">Закрыть</Button>
+        </Grid>
+        <GroupBox Header="Список всех отделов" DockPanel.Dock="Top">
+            <ScrollViewer>
+                <ListBox x:Name="listBoxDepartments" SelectionMode="Single" FontSize="14">
+                </ListBox>
+            </ScrollViewer>
+        </GroupBox>
+    </DockPanel>
+</Window>
