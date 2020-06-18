@@ -6,23 +6,22 @@
         xmlns:local="clr-namespace:WpfApp1Company"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:objects="clr-namespace:WpfApp1Company.Objects"
+        xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System"
         mc:Ignorable="d"
         Title="Методичка 6. Продвинутый курс C#. Связывание данных. Триггеры." Loaded="MainWindow_OnLoaded" Height="500" 
         MinHeight="300" Width="800" MinWidth="400" WindowStartupLocation="CenterScreen" Background="Azure" 
         Icon="Avatar.ico" ResizeMode="CanResizeWithGrip">
     <Window.Resources>
-        <x:Array x:Key="depsTest" Type="objects:Department">
+        <!--<x:Array x:Key="depsTest" Type="objects:Department">
             <objects:Department Id="0" Name="Управление">
                 <objects:Department.Employees>
-                    <x:Array Type="sys:Int32">
-                        <sys:Int32>0</sys:Int32>
-                    </x:Array>
+                    <objects:Employee/>
                 </objects:Department.Employees>
             </objects:Department>
         </x:Array>
         <x:Array x:Key="empsTest" Type="objects:Employee">
             <objects:Employee Id="0" Fam="Петров" Name="Вася" Age="18" Salary="18000" Department="0"/>
-        </x:Array>
+        </x:Array>-->
     </Window.Resources>
     <DockPanel LastChildFill="True">
         <Menu DockPanel.Dock="Top" FontSize="14">
@@ -72,7 +71,7 @@
             <GroupBox Grid.Column="0" Header="Отделы компании:" Margin="0,0,5,0" FontSize="14">
                 <Grid>
                     <ScrollViewer Margin="3">
-                        <ListView x:Name="ListViewDepartaments" ItemsSource="{StaticResource depsTest}">
+                        <ListView x:Name="ListViewDepartaments" >
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}"/>
@@ -97,7 +96,7 @@
                         <TextBlock DataContext="{Binding ElementName=ListViewDepartaments, Path=SelectedItem}" Text="{Binding Path=Name}" Grid.Column="1" FontWeight="Black" FontSize="14" Margin="3"></TextBlock>
                     </Grid>
                     <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="3">
-                        <ListView x:Name="ListViewEmployees" ItemsSource="{StaticResource empsTest}">
+                        <ListView x:Name="ListViewEmployees" DataContext="{Binding ElementName=ListViewDepartaments, Path=SelectedItem}" ItemsSource="{Binding Path=Employees}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Fam}" Header="Фамилия" Width="100"/>

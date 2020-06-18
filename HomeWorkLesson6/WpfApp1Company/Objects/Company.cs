@@ -47,15 +47,15 @@ namespace WpfApp1Company.Objects
             {
                 new Department
                 {
-                    Name = "Питонщики", Employees = {collE[0]},
+                    Name = "Питонщики", Employees = new ObservableCollection<Employee>{collE[0]},
                 },
                 new Department
                 {
-                    Name = "Шарписты", Employees = new int[]{1, 2},
+                    Name = "Шарписты", Employees = new ObservableCollection<Employee>{collE[1], collE[2]},
                 },
                 new Department
                 {
-                    Name = "Джависты", Employees = new int[]{3, 4, 5},
+                    Name = "Джависты", Employees = new ObservableCollection<Employee>{collE[3], collE[4], collE[5]},
                 },
             };
             return (collD, collE);
