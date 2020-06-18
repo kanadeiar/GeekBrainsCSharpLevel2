@@ -11,21 +11,21 @@ namespace WpfApp1Company.Objects
     /// <summary> Сотрудник компании </summary>
     public class Employee : INotifyPropertyChanged
     {
-        private string fam;
-        private string name;
-        private int age;
-        private double salary;
-        private Department department;
+        private string _fam;
+        private string _name;
+        private int _age;
+        private double _salary;
+        private Department _department;
         #region Свойства зависимостей
         /// <summary> Фамилия </summary>
         public string Fam
         {
-            get => fam;
+            get => _fam;
             set
             {
-                if (this.fam != value)
+                if (this._fam != value)
                 {
-                    this.fam = value;
+                    this._fam = value;
                     this.NotifyPropertyChanged("Fam");
                 }
             }
@@ -33,12 +33,12 @@ namespace WpfApp1Company.Objects
         /// <summary> Имя </summary>
         public string Name
         {
-            get => name;
+            get => _name;
             set
             {
-                if (this.name != value)
+                if (this._name != value)
                 {
-                    this.name = value;
+                    this._name = value;
                     this.NotifyPropertyChanged("Name");
                 }
             }
@@ -46,12 +46,12 @@ namespace WpfApp1Company.Objects
         /// <summary> Возраст </summary>
         public int Age
         {
-            get => age;
+            get => _age;
             set
             {
-                if (this.age != value)
+                if (this._age != value)
                 {
-                    this.age = value;
+                    this._age = value;
                     this.NotifyPropertyChanged("Age");
                 }
             }
@@ -59,12 +59,12 @@ namespace WpfApp1Company.Objects
         /// <summary> Зарплата </summary>
         public double Salary
         {
-            get => salary;
+            get => _salary;
             set
             {
-                if (this.salary != value)
+                if (this._salary != value)
                 {
-                    this.salary = value;
+                    this._salary = value;
                     this.NotifyPropertyChanged("Salary");
                 }
             }
@@ -72,12 +72,12 @@ namespace WpfApp1Company.Objects
         /// <summary> Отдел </summary>
         public Department Department
         {
-            get => department;
+            get => _department;
             set
             {
-                if (this.department != value)
+                if (this._department != value)
                 {
-                    this.department = value;
+                    this._department = value;
                     this.NotifyPropertyChanged("Department");
                 }
             }

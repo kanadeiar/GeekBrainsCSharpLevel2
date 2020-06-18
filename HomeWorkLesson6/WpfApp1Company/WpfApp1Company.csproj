@@ -72,6 +72,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objects\Company.cs" />
     <Compile Include="Objects\Department.cs" />
     <Compile Include="Objects\Employee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace WpfApp1Company.Objects
 {
-    /// <summary> Отдел компании </summary>
-    public class Department : INotifyPropertyChanged
+    /// <summary>
+    /// Компания
+    /// </summary>
+    public class Company : INotifyPropertyChanged
     {
         private string _name;
         #region Свойства зависимостей
-        /// <summary> Название отдела </summary>
         public string Name
         {
             get => _name;
