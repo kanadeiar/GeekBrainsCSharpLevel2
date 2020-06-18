@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApp1Company.Objects;
+﻿using System.ComponentModel;
 
 namespace WpfApp1Company.Objects
 {
@@ -16,7 +10,7 @@ namespace WpfApp1Company.Objects
         private string _name;
         private int _age;
         private double _salary;
-        private int _department;
+        private Department _department;
         #region Свойства зависимостей
         /// <summary> Ид </summary>
         public int Id
@@ -84,7 +78,7 @@ namespace WpfApp1Company.Objects
             }
         }
         /// <summary> Отдел </summary>
-        public int Department
+        public Department Department
         {
             get => _department;
             set
