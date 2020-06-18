@@ -71,7 +71,7 @@
             <GroupBox Grid.Column="0" Header="Отделы компании:" Margin="0,0,5,0" FontSize="14">
                 <Grid>
                     <ScrollViewer Margin="3">
-                        <ListView x:Name="ListViewDepartaments" >
+                        <ListView x:Name="ListViewDepartaments" SelectionMode="Single">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}"/>
@@ -96,14 +96,13 @@
                         <TextBlock DataContext="{Binding ElementName=ListViewDepartaments, Path=SelectedItem}" Text="{Binding Path=Name}" Grid.Column="1" FontWeight="Black" FontSize="14" Margin="3"></TextBlock>
                     </Grid>
                     <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="3">
-                        <ListView x:Name="ListViewEmployees" DataContext="{Binding ElementName=ListViewDepartaments, Path=SelectedItem}" ItemsSource="{Binding Path=Employees}">
+                        <ListView x:Name="ListViewEmployees" DataContext="{Binding ElementName=ListViewDepartaments, Path=SelectedItem}" ItemsSource="{Binding Path=Employees}" SelectionMode="Single">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Fam}" Header="Фамилия" Width="100"/>
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Имя" Width="100"/>
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Age}" Header="Возраст" Width="60"/>
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Salary}" Header="Зарплата" Width="80"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Department}" Header="Отдел" Width="80"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -111,7 +110,7 @@
                 </Grid>
             </GroupBox>
             <GridSplitter Grid.Column="1" Width="5" Background="PaleGreen"/>
-            <GroupBox Header="Сотрудник:" Grid.Column="2">
+            <GroupBox Header="Сотрудник:" Grid.Column="2" DataContext="{Binding ElementName=ListViewEmployees, Path=SelectedItem}">
                 <Grid Margin="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -130,11 +129,17 @@
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Возраст:" FontSize="14" Margin="3"/>
                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Зарплата:" FontSize="14" Margin="3"/>
                     <TextBlock Grid.Column="0" Grid.Row="4" Text="Отдел:" FontSize="14" Margin="3"/>
-                    <TextBox Grid.Column="1" Grid.Row="0" FontSize="16" Margin="3"/>
-                    <TextBox Grid.Column="1" Grid.Row="1" FontSize="16" Margin="3"/>
-                    <TextBox Grid.Column="1" Grid.Row="2" FontSize="16" Margin="3"/>
-                    <TextBox Grid.Column="1" Grid.Row="3" FontSize="16" Margin="3"/>
-                    <ComboBox Grid.Column="1" Grid.Row="4" FontSize="16" Margin="3"/>
+                    <TextBox Text="{Binding Path=Fam}" Grid.Column="1" Grid.Row="0" FontSize="16" Margin="3"/>
+                    <TextBox Text="{Binding Path=Name}" Grid.Column="1" Grid.Row="1" FontSize="16" Margin="3"/>
+                    <TextBox Text="{Binding Path=Age}" Grid.Column="1" Grid.Row="2" FontSize="16" Margin="3"/>
+                    <TextBox Text="{Binding Path=Salary}" Grid.Column="1" Grid.Row="3" FontSize="16" Margin="3"/>
+                    <ComboBox x:Name="ComboBoxDepartaments" SelectedItem="{Binding Path=Departament}" Grid.Column="1" Grid.Row="4" FontSize="16" Margin="3">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
 
             </GroupBox>

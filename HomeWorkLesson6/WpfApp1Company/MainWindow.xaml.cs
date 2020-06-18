@@ -31,7 +31,7 @@ namespace WpfApp1Company
             _company = new Company();
             (_company.Departments, _company.Employees) = Company.GetSamples();
             ListViewDepartaments.ItemsSource = _company.Departments;
-            //ListViewEmployees.ItemsSource = _company.Employees;
+            ComboBoxDepartaments.ItemsSource = _company.Departments;
         }
     }
 }
