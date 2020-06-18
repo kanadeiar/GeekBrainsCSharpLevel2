@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1Company.Objects;
 
 namespace WpfApp1Company
 {
@@ -20,14 +21,17 @@ namespace WpfApp1Company
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Company _company;
         public MainWindow()
         {
             InitializeComponent();
         }
-
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
+            _company = new Company();
+            (_company.Departments, _company.Employees) = Company.GetSamples();
+            ListViewDepartaments.ItemsSource = _company.Departments;
+            //ListViewEmployees.ItemsSource = _company.Employees;
         }
     }
 }

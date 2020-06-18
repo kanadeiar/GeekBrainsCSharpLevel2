@@ -11,12 +11,26 @@ namespace WpfApp1Company.Objects
     /// <summary> Сотрудник компании </summary>
     public class Employee : INotifyPropertyChanged
     {
+        private int _id;
         private string _fam;
         private string _name;
         private int _age;
         private double _salary;
-        private Department _department;
+        private int _department;
         #region Свойства зависимостей
+        /// <summary> Ид </summary>
+        public int Id
+        {
+            get => _id;
+            set
+            {
+                if (this._id != value)
+                {
+                    this._id = value;
+                    this.NotifyPropertyChanged("Id");
+                }
+            }
+        }
         /// <summary> Фамилия </summary>
         public string Fam
         {
@@ -70,7 +84,7 @@ namespace WpfApp1Company.Objects
             }
         }
         /// <summary> Отдел </summary>
-        public Department Department
+        public int Department
         {
             get => _department;
             set
