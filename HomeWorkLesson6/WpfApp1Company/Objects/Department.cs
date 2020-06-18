@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace WpfApp1Company.Objects
     public class Department : INotifyPropertyChanged
     {
         private string _name;
+        public ObservableCollection<Employee> Employees;
         #region Свойства зависимостей
         /// <summary> Название отдела </summary>
         public string Name
@@ -25,6 +27,7 @@ namespace WpfApp1Company.Objects
                 }
             }
         }
+
         #endregion
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string prop)
