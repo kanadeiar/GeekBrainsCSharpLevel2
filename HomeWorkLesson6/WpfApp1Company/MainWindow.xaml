@@ -7,12 +7,16 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Методичка 6. Продвинутый курс C#. Связывание данных. Триггеры." Loaded="MainWindow_OnLoaded" Height="500" 
-        MinHeight="300" Width="700" MinWidth="400" WindowStartupLocation="CenterScreen" Background="Azure" 
+        MinHeight="300" Width="800" MinWidth="400" WindowStartupLocation="CenterScreen" Background="Azure" 
         Icon="Avatar.ico" ResizeMode="CanResizeWithGrip">
     <Window.Resources>
         <x:Array x:Key="depsTest" Type="sys:String">
             <sys:String>Первый отдел</sys:String>
             <sys:String>Второй отдел</sys:String>
+        </x:Array>
+        <x:Array x:Key="emplyeesText" Type="sys:String">
+            <sys:String>Самоедов Вова</sys:String>
+            <sys:String>Петров Петя</sys:String>
         </x:Array>
     </Window.Resources>
     <DockPanel LastChildFill="True">
@@ -42,8 +46,10 @@
             <ToolBar FontSize="14">
                 <TextBlock Text="Сотрудник отдела:" VerticalAlignment="Center"/>
                 <Button Style="{StaticResource ButtonMenu}">Внести</Button>
-                <Button Style="{StaticResource ButtonMenu}">Изменить</Button>
                 <Button Style="{StaticResource ButtonMenu}">Уволить</Button>
+            </ToolBar>
+            <ToolBar FontSize="14">
+                <Button Style="{StaticResource ButtonMenu}">Все сотрудники</Button>
             </ToolBar>
         </StackPanel>
         <StatusBar DockPanel.Dock="Bottom">
@@ -54,6 +60,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <GridSplitter Grid.Column="0" Width="5" Background="PaleGreen"/>
@@ -61,12 +68,11 @@
                 <Grid>
                     <ScrollViewer Margin="3">
                         <ListView ItemsSource="{StaticResource depsTest}">
-
                         </ListView>
                     </ScrollViewer>
                 </Grid>
             </GroupBox>
-            <GroupBox Grid.Column="1" Header="Сотрудники отдела:" FontSize="14">
+            <GroupBox Grid.Column="1" Header="Сотрудники отдела:" Margin="0,0,5,0" FontSize="14">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -77,15 +83,42 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Сотрудники отдела " Grid.Column="0" FontSize="14"></TextBlock>
-                        <TextBlock Text="[Отдел]" Grid.Column="1" FontWeight="Black" FontSize="14"></TextBlock>
+                        <TextBlock Text="Сотрудники отдела " Grid.Column="0" FontSize="14" Margin="3"></TextBlock>
+                        <TextBlock Text="[Отдел]" Grid.Column="1" FontWeight="Black" FontSize="14" Margin="3"></TextBlock>
                     </Grid>
                     <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="3">
-                        <ListView ItemsSource="{StaticResource depsTest}">
-
+                        <ListView ItemsSource="{StaticResource emplyeesText}">
                         </ListView>
                     </ScrollViewer>
                 </Grid>
+            </GroupBox>
+            <GridSplitter Grid.Column="1" Width="5" Background="PaleGreen"/>
+            <GroupBox Header="Сотрудник:" Grid.Column="2">
+                <Grid Margin="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Фамилия:" FontSize="14" Margin="3"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Имя:" FontSize="14" Margin="3"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Возраст:" FontSize="14" Margin="3"/>
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Зарплата:" FontSize="14" Margin="3"/>
+                    <TextBlock Grid.Column="0" Grid.Row="4" Text="Отдел:" FontSize="14" Margin="3"/>
+                    <TextBox Grid.Column="1" Grid.Row="0" FontSize="16" Margin="3"/>
+                    <TextBox Grid.Column="1" Grid.Row="1" FontSize="16" Margin="3"/>
+                    <TextBox Grid.Column="1" Grid.Row="2" FontSize="16" Margin="3"/>
+                    <TextBox Grid.Column="1" Grid.Row="3" FontSize="16" Margin="3"/>
+                    <ComboBox Grid.Column="1" Grid.Row="4" FontSize="16" Margin="3"/>
+                </Grid>
+
             </GroupBox>
         </Grid>
     </DockPanel>
