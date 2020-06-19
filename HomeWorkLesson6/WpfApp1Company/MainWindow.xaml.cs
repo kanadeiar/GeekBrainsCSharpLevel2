@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using WpfApp1Company.Objects;
+using WpfApp1Company.Windows;
 
 namespace WpfApp1Company
 {
@@ -23,6 +24,23 @@ namespace WpfApp1Company
         private void ComboBoxDepartaments_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             ListViewDepartaments.SelectedIndex = ComboBoxDepartaments.SelectedIndex;
+        }
+
+
+        
+        private void ButtonAddDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            NewDepartmentWindow newDepartment = new NewDepartmentWindow();
+            newDepartment.ShowDialog();
+        }
+        private void ButtonEditDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            EditDepartmentWindow editDepartment = new EditDepartmentWindow();
+            editDepartment.ShowDialog();
+        }
+        private void ButtonDeleteDepartment_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

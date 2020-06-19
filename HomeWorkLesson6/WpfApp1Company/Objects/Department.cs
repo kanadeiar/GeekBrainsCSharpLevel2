@@ -14,7 +14,6 @@ namespace WpfApp1Company.Objects
             Company.Employees
                 .Where(e => e.DepartmentId == _id)
                 .ToArray();
-        /// <summary> Обновление компании </summary>
         public Department() { }
         public Department(int id, string name)
         {

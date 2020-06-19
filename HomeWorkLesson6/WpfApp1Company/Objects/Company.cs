@@ -20,12 +20,12 @@ namespace WpfApp1Company.Objects
         {
             Random rand = new Random();
             var collD = new ObservableCollection<Department>();
-            for (int i = 0; i < 1_000; i++)
+            for (int i = 0; i < 100; i++)
             {
                 collD.Add(new Department(i+1, $"Отдел теста {rand.Next(1000)}"));
             }
             var collE = new ObservableCollection<Employee>();
-            for (int i = 0; i < 100_000; i++)
+            for (int i = 0; i < 10_000; i++)
             {
                 collE.Add(new Employee(i + 1, $"Тестов{rand.Next(1000)}", $"Тест{rand.Next(1000)}", rand.Next(18, 90), rand.Next(50_000), rand.Next(1,1000)));
             }
