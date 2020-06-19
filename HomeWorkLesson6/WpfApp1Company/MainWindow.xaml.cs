@@ -35,7 +35,10 @@ namespace WpfApp1Company
         }
         private void ButtonEditDepartment_Click(object sender, RoutedEventArgs e)
         {
+            if (null == ListViewDepartaments.SelectedItem)
+                return;
             EditDepartmentWindow editDepartment = new EditDepartmentWindow();
+            editDepartment.Department = (Department)ListViewDepartaments.SelectedItem;
             editDepartment.ShowDialog();
         }
         private void ButtonDeleteDepartment_Click(object sender, RoutedEventArgs e)

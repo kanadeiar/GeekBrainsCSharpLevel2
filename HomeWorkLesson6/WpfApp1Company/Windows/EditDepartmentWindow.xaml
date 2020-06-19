@@ -27,7 +27,6 @@
             <TextBlock Text="Название отдела:"/>
             <TextBox x:Name="TextBoxNameDepartment" Grid.Column="1"/>
         </Grid>
-        <Button Grid.Column="0" Grid.Row="1" x:Name="ButtonOk" Margin="5" Padding="5" FontSize="14" Background="GreenYellow" Click="ButtonOk_Click">Подтвердить</Button>
-        <Button Grid.Column="1" Grid.Row="1" x:Name="ButtonCancel" Margin="5" Padding="5" FontSize="14" Background="Yellow" Click="ButtonCancel_Click">Отменить</Button>
+        <Button Grid.Column="1" Grid.Row="1" x:Name="ButtonCancel" Margin="5" Padding="5" FontSize="14" Click="ButtonCancel_Click">Закрыть</Button>
     </Grid>
 </Window>

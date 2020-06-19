@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1Company.Objects;
 
 namespace WpfApp1Company.Windows
 {
@@ -19,6 +20,8 @@ namespace WpfApp1Company.Windows
     /// </summary>
     public partial class EditDepartmentWindow : Window
     {
+        /// <summary> Отдел на редактировании </summary>
+        public Department Department { get; set; }
         public EditDepartmentWindow()
         {
             InitializeComponent();
@@ -26,12 +29,12 @@ namespace WpfApp1Company.Windows
 
         private void EditDepartmentWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
-        }
-
-        private void ButtonOk_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
+            Binding binding = new Binding
+            {
+                Source = Department,
+                Path = new PropertyPath("Name"),
+            };
+            TextBoxNameDepartment.SetBinding(TextBox.TextProperty, binding);
         }
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
