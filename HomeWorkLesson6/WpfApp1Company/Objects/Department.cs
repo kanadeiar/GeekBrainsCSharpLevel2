@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 
 namespace WpfApp1Company.Objects
 {
@@ -8,7 +9,18 @@ namespace WpfApp1Company.Objects
     {
         private int _id;
         private string _name;
-        public ObservableCollection<Employee> Employees { get; set; }
+        /// <summary> Сотрудники этой компании </summary>
+        public Employee[] Employees =>
+            Company.Employees
+                .Where(e => e.DepartmentId == _id)
+                .ToArray();
+        /// <summary> Обновление компании </summary>
+        public Department() { }
+        public Department(int id, string name)
+        {
+            _id = id;
+            _name = name;
+        }
         #region Свойства зависимостей
         /// <summary> Название отдела </summary>
         public int Id

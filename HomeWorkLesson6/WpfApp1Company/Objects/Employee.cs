@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
 
 namespace WpfApp1Company.Objects
 {
@@ -10,7 +12,17 @@ namespace WpfApp1Company.Objects
         private string _name;
         private int _age;
         private double _salary;
-        private Department _department;
+        private int _departmentId;
+        public Employee() { }
+        public Employee(int id, string fam, string name, int age, double salary, int departmentId)
+        {
+            _id = id;
+            _fam = fam;
+            _name = name;
+            _age = age;
+            _salary = salary;
+            _departmentId = departmentId;
+        }
         #region Свойства зависимостей
         /// <summary> Ид </summary>
         public int Id
@@ -70,7 +82,7 @@ namespace WpfApp1Company.Objects
             get => _salary;
             set
             {
-                if (this._salary != value)
+                if (Math.Abs(this._salary - value) > 0.1)
                 {
                     this._salary = value;
                     this.NotifyPropertyChanged("Salary");
@@ -78,15 +90,29 @@ namespace WpfApp1Company.Objects
             }
         }
         /// <summary> Отдел </summary>
-        public Department Department
+        public int DepartmentId
         {
-            get => _department;
+            get => _departmentId;
             set
             {
-                if (this._department != value)
+                if (this._departmentId != value)
                 {
-                    this._department = value;
-                    this.NotifyPropertyChanged("Department");
+                    this._departmentId = value;
+                    this.NotifyPropertyChanged("DepartmentId");
+                }
+            }
+        }
+        /// <summary> Отдел из коллекции отделов </summary>
+        public Department Department
+        {
+            get => Company.Departments.First(d => d.Id == _departmentId);
+            set
+            {
+                var valueId = Company.Departments.First(d => d == value).Id;
+                if (this._departmentId != valueId)
+                {
+                    this._departmentId = valueId;
+                    this.NotifyPropertyChanged("Departament");
                 }
             }
         }

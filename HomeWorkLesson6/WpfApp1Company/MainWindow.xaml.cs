@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using WpfApp1Company.Objects;
 
 namespace WpfApp1Company
@@ -8,17 +9,20 @@ namespace WpfApp1Company
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Company _company;
         public MainWindow()
         {
             InitializeComponent();
         }
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            _company = new Company();
-            (_company.Departments, _company.Employees) = Company.GetSamples();
-            ListViewDepartaments.ItemsSource = _company.Departments;
-            ComboBoxDepartaments.ItemsSource = _company.Departments;
+            (Company.Departments, Company.Employees) = Company.GetSamples();
+            ListViewDepartaments.ItemsSource = Company.Departments;
+            ComboBoxDepartaments.ItemsSource = Company.Departments;
+        }
+
+        private void ComboBoxDepartaments_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            ListViewDepartaments.SelectedIndex = ComboBoxDepartaments.SelectedIndex;
         }
     }
 }

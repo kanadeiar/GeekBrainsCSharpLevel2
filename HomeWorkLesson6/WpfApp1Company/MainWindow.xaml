@@ -123,10 +123,12 @@
                     <TextBox Text="{Binding Path=Name}" Grid.Column="1" Grid.Row="1" FontSize="16" Margin="3"/>
                     <TextBox Text="{Binding Path=Age}" Grid.Column="1" Grid.Row="2" FontSize="16" Margin="3"/>
                     <TextBox Text="{Binding Path=Salary}" Grid.Column="1" Grid.Row="3" FontSize="16" Margin="3"/>
-                    <ComboBox x:Name="ComboBoxDepartaments" SelectedItem="{Binding Path=Department}" Grid.Column="1" Grid.Row="4" FontSize="16" Margin="3">
+                    <ComboBox x:Name="ComboBoxDepartaments" SelectedItem="{Binding Path=Department}" Grid.Column="1" Grid.Row="4" FontSize="14" Margin="3" SelectionChanged="ComboBoxDepartaments_SelectionChanged" VirtualizingStackPanel.IsVirtualizing="True">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=Name}"/>
+                                <VirtualizingStackPanel>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </VirtualizingStackPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
