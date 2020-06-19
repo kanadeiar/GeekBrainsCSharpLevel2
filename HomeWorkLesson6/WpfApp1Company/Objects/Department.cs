@@ -21,7 +21,7 @@ namespace WpfApp1Company.Objects
             _name = name;
         }
         #region Свойства зависимостей
-        /// <summary> Название отдела </summary>
+        /// <summary> Ид отдела </summary>
         public int Id
         {
             get => _id;

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using WpfApp1Company.Objects;
 using WpfApp1Company.Windows;
@@ -31,7 +32,16 @@ namespace WpfApp1Company
         private void ButtonAddDepartment_Click(object sender, RoutedEventArgs e)
         {
             NewDepartmentWindow newDepartment = new NewDepartmentWindow();
+            newDepartment.Department = new Department
+            {
+                Id = Company.Departments.Max(d => d.Id) + 1,
+                Name = string.Empty,
+            };
             newDepartment.ShowDialog();
+            if (newDepartment.DialogResult == true)
+            {
+                Company.Departments.Add(newDepartment.Department);
+            }
         }
         private void ButtonEditDepartment_Click(object sender, RoutedEventArgs e)
         {
@@ -43,7 +53,18 @@ namespace WpfApp1Company
         }
         private void ButtonDeleteDepartment_Click(object sender, RoutedEventArgs e)
         {
-
+            if (null == ListViewDepartaments.SelectedItem)
+                return;
+            Department deleteIt = (Department)ListViewDepartaments.SelectedItem;
+            if (deleteIt.Employees.Length > 0)
+            {
+                MessageBox.Show("Нельзя удалить отдел, в котором еще работают сотрудники!", "Так нельзя",
+                    MessageBoxButton.OK, MessageBoxImage.Hand);
+                return;
+            }
+            MessageBoxResult res = MessageBox.Show($"Действительно удалить отдел с названием \"{deleteIt.Name}\"?",
+                "Удаление отдела", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            Company.Departments.Remove(deleteIt);
         }
     }
 }

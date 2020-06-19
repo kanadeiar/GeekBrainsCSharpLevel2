@@ -26,7 +26,6 @@ namespace WpfApp1Company.Windows
         {
             InitializeComponent();
         }
-
         private void EditDepartmentWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             Binding binding = new Binding
