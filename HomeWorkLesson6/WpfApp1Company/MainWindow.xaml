@@ -57,7 +57,7 @@
                 <Button x:Name="ButtonDeleteEmployee" Style="{StaticResource ButtonMenu}" Click="ButtonDeleteEmployee_OnClick">Уволить</Button>
             </ToolBar>
             <ToolBar FontSize="14">
-                <Button Style="{StaticResource ButtonMenu}">Все сотрудники</Button>
+                <Button x:Name="ButtonEmployees" Style="{StaticResource ButtonMenu}" Click="ButtonEmployees_OnClick">Все сотрудники</Button>
             </ToolBar>
         </StackPanel>
         <StatusBar DockPanel.Dock="Bottom">

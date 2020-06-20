@@ -119,5 +119,10 @@ namespace WpfApp1Company
             ListViewDepartaments.SelectedIndex = -1;
             ListViewDepartaments.SelectedIndex = tmp;
         }
+        private void ButtonEmployees_OnClick(object sender, RoutedEventArgs e)
+        {
+            EmployersWindow employersWindow = new EmployersWindow();
+            employersWindow.ShowDialog();
+        }
     }
 }
