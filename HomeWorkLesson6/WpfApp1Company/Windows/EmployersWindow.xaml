@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1Company.Windows"
         mc:Ignorable="d"
-        Title="Все сотрудники компании" Loaded="EmployersWindow_OnLoaded" Height="650" MinHeight="400" Width="800" 
+        Title="Редактирование всех сотрудников компании" Loaded="EmployersWindow_OnLoaded" Height="650" MinHeight="400" Width="800" 
         MinWidth="500" WindowStartupLocation="CenterScreen" Background="LightYellow" 
         Icon="/WpfApp1Company;component/Avatar.ico" ShowInTaskbar="False" ResizeMode="CanResizeWithGrip">
     <DockPanel LastChildFill="True">

@@ -9,17 +9,18 @@ namespace WpfApp1Company.Objects
     {
         private int _id;
         private string _name;
-        /// <summary> Сотрудники этой компании </summary>
-        public Employee[] Employees =>
-            Company.Employees
-                .Where(e => e.DepartmentId == _id)
-                .ToArray();
         public Department() { }
         public Department(int id, string name)
         {
             _id = id;
             _name = name;
         }
+        /// <summary> Сотрудники этой компании </summary>
+        public Employee[] Employees =>
+            Company.Employees
+                .Where(e => e.DepartmentId == _id)
+                .ToArray();
+
         #region Свойства зависимостей
         /// <summary> Ид отдела </summary>
         public int Id
