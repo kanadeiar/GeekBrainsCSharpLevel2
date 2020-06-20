@@ -53,8 +53,8 @@
             </ToolBar>
             <ToolBar FontSize="14">
                 <TextBlock Text="Сотрудник отдела:" VerticalAlignment="Center"/>
-                <Button Style="{StaticResource ButtonMenu}">Внести</Button>
-                <Button Style="{StaticResource ButtonMenu}">Уволить</Button>
+                <Button x:Name="ButtonAddEmployee" Style="{StaticResource ButtonMenu}" Click="ButtonAddEmployee_OnClick">Внести</Button>
+                <Button x:Name="ButtonDeleteEmployee" Style="{StaticResource ButtonMenu}" Click="ButtonDeleteEmployee_OnClick">Уволить</Button>
             </ToolBar>
             <ToolBar FontSize="14">
                 <Button Style="{StaticResource ButtonMenu}">Все сотрудники</Button>

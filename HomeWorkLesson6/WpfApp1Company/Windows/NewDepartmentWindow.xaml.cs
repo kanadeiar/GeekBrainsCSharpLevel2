@@ -38,6 +38,11 @@ namespace WpfApp1Company.Windows
         }
         private void ButtonOk_OnClick(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(TextBoxNameDepartment.Text))
+            {
+                MessageBox.Show("Введите хоть какое-то имя отдела!", "Так нельзя", MessageBoxButton.OK, MessageBoxImage.Stop);
+                return;
+            }
             DialogResult = true;
         }
         private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)

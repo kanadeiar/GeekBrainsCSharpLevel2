@@ -64,6 +64,9 @@
     <Compile Include="Windows\NewDepartmentWindow.xaml.cs">
       <DependentUpon>NewDepartmentWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\NewEmployeeWindow.xaml.cs">
+      <DependentUpon>NewEmployeeWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -81,6 +84,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\NewDepartmentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\NewEmployeeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

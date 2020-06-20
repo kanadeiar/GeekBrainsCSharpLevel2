@@ -66,5 +66,29 @@ namespace WpfApp1Company
                 "Удаление отдела", MessageBoxButton.YesNo, MessageBoxImage.Question);
             Company.Departments.Remove(deleteIt);
         }
+
+        private void ButtonAddEmployee_OnClick(object sender, RoutedEventArgs e)
+        {
+            NewEmployeeWindow newEmployee = new NewEmployeeWindow();
+            newEmployee.Employee = new Employee
+            {
+                Id = Company.Employees.Max(em => em.Id) + 1,
+                Fam = string.Empty,
+                Name = string.Empty,
+                Age = default,
+                Salary = default,
+                DepartmentId = default,
+            };
+            newEmployee.ShowDialog();
+            if (newEmployee.DialogResult == true)
+            {
+                Company.Employees.Add(newEmployee.Employee);
+            }
+        }
+
+        private void ButtonDeleteEmployee_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
