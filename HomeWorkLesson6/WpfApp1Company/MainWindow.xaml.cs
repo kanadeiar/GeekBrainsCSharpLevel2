@@ -84,7 +84,6 @@ namespace WpfApp1Company
             if (res == MessageBoxResult.Yes)
                 Company.Departments.Remove(deleteIt);
         }
-
         private void ButtonAddEmployee_OnClick(object sender, RoutedEventArgs e)
         {
             NewEmployeeWindow newEmployee = new NewEmployeeWindow();
@@ -123,6 +122,9 @@ namespace WpfApp1Company
         {
             EmployersWindow employersWindow = new EmployersWindow();
             employersWindow.ShowDialog();
+            int tmp = ListViewDepartaments.SelectedIndex;
+            ListViewDepartaments.SelectedIndex = -1;
+            ListViewDepartaments.SelectedIndex = tmp;
         }
     }
 }

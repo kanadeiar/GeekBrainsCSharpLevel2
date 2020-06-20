@@ -47,7 +47,6 @@ namespace WpfApp1Company.Objects
                 }
             }
         }
-
         #endregion
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string prop)

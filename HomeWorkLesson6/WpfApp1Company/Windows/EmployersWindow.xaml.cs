@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1Company.Objects;
 
 namespace WpfApp1Company.Windows
 {
@@ -26,12 +27,21 @@ namespace WpfApp1Company.Windows
 
         private void EmployersWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
+            DataGridEmployees.ItemsSource = Company.Employees;
+            DataGridComboBoxDepartments.ItemsSource = Company.Departments;
         }
 
         private void ButtonExit_OnClick(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void ButtonDeleteEmployee_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (DataGridEmployees.SelectedValue is Employee em)
+            {
+                Company.Employees.Remove(em);
+            }
         }
     }
 }
