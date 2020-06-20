@@ -85,7 +85,6 @@ namespace WpfApp1Company
                 Company.Employees.Add(newEmployee.Employee);
             }
         }
-
         private void ButtonDeleteEmployee_OnClick(object sender, RoutedEventArgs e)
         {
             

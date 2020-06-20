@@ -22,6 +22,7 @@ namespace WpfApp1Company.Objects
             int sizeDeps = 100;
             int sizeEmpl = 1_000;
             var collD = new ObservableCollection<Department>();
+            collD.Add(new Department(0, "<Отдел отсутствует>"));
             for (int i = 0; i < sizeDeps; i++)
             {
                 collD.Add(new Department(i + 1, $"Отдел теста {rand.Next(1000)}"));
