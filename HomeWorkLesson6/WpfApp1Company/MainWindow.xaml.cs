@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using WpfApp1Company.Objects;
 using WpfApp1Company.Windows;
 
@@ -47,8 +49,16 @@ namespace WpfApp1Company
         {
             if (null == ListViewDepartaments.SelectedItem)
                 return;
+            Department editIt = (Department)ListViewDepartaments.SelectedItem;
+            if (editIt.Id == 0)
+            {
+                SystemSounds.Hand.Play();
+                MessageBox.Show("Это не отдел, его нельзя редактировать!", "Ошибочка вышла...", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return;
+            }
             EditDepartmentWindow editDepartment = new EditDepartmentWindow();
-            editDepartment.Department = (Department)ListViewDepartaments.SelectedItem;
+            editDepartment.Department = editIt;
             editDepartment.ShowDialog();
         }
         private void ButtonDeleteDepartment_Click(object sender, RoutedEventArgs e)
@@ -56,6 +66,13 @@ namespace WpfApp1Company
             if (null == ListViewDepartaments.SelectedItem)
                 return;
             Department deleteIt = (Department)ListViewDepartaments.SelectedItem;
+            if (deleteIt.Id == 0)
+            {
+                SystemSounds.Hand.Play();
+                MessageBox.Show("Это не отдел, его нельзя удалять!", "Ошибочка вышла...", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return;
+            }
             if (deleteIt.Employees.Length > 0)
             {
                 MessageBox.Show("Нельзя удалить отдел, в котором еще работают сотрудники!", "Так нельзя",
@@ -64,7 +81,8 @@ namespace WpfApp1Company
             }
             MessageBoxResult res = MessageBox.Show($"Действительно удалить отдел с названием \"{deleteIt.Name}\"?",
                 "Удаление отдела", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            Company.Departments.Remove(deleteIt);
+            if (res == MessageBoxResult.Yes)
+                Company.Departments.Remove(deleteIt);
         }
 
         private void ButtonAddEmployee_OnClick(object sender, RoutedEventArgs e)
@@ -84,10 +102,22 @@ namespace WpfApp1Company
             {
                 Company.Employees.Add(newEmployee.Employee);
             }
+            int tmp = ListViewDepartaments.SelectedIndex;
+            ListViewDepartaments.SelectedIndex = -1;
+            ListViewDepartaments.SelectedIndex = tmp;
         }
         private void ButtonDeleteEmployee_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            if (null == ListViewEmployees.SelectedItem)
+                return;
+            Employee deleteIt = (Employee) ListViewEmployees.SelectedItem;
+            MessageBoxResult res = MessageBox.Show($"Действительно уволить сотрудника {deleteIt.Fam} {deleteIt.Name}?",
+                "Увольнение сотрудника", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (res == MessageBoxResult.Yes)
+                Company.Employees.Remove(deleteIt);
+            int tmp = ListViewDepartaments.SelectedIndex;
+            ListViewDepartaments.SelectedIndex = -1;
+            ListViewDepartaments.SelectedIndex = tmp;
         }
     }
 }

@@ -70,7 +70,53 @@ namespace WpfApp1Company.Windows
                 MessageBox.Show("Введите хоть какую-то фамилию сотрудника!", "Так нельзя", MessageBoxButton.OK, MessageBoxImage.Stop);
                 return;
             }
-
+            if (string.IsNullOrEmpty(TextBoxNameEmployee.Text))
+            {
+                MessageBox.Show("Введите хоть какое-либо имя сотрудника!", "Так нельзя", MessageBoxButton.OK, MessageBoxImage.Stop);
+                return;
+            }
+            if (string.IsNullOrEmpty(TextBoxAgeEmployee.Text))
+            {
+                MessageBox.Show("Введите хоть какой нибудь возраст сотрудника!", "Так нельзя", MessageBoxButton.OK, MessageBoxImage.Stop);
+                return;
+            }
+            int age = 0;
+            if (!int.TryParse(TextBoxAgeEmployee.Text, out age))
+            {
+                MessageBox.Show("Возраст сотрудника нужно ввести целым числом!", "Так нельзя", MessageBoxButton.OK, MessageBoxImage.Stop);
+                return;
+            }
+            if (age < 18)
+            {
+                MessageBox.Show("Несовершеннолетним нельзя работать!", "Так нельзя", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (age > 60)
+            {
+                MessageBox.Show("Пенсионерам нельзя работать!", "Так нельзя", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (string.IsNullOrEmpty(TextBoxSalaryEmployee.Text))
+            {
+                MessageBox.Show("Введите хоть какую-нибудь зарплату сотрудника!", "Так нельзя", MessageBoxButton.OK, MessageBoxImage.Stop);
+                return;
+            }
+            double salary = 0.0;
+            if (!double.TryParse(TextBoxSalaryEmployee.Text, out salary))
+            {
+                MessageBox.Show("Зарплату сотрудника нужно ввести вещественным числом!", "Так нельзя", MessageBoxButton.OK, MessageBoxImage.Stop);
+                return;
+            }
+            if (salary < 1000.0)
+            {
+                MessageBox.Show("Зарплата сотрудника должна быть выше прожиточного минимума!", "Так нельзя", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (salary > 90000.0)
+            {
+                MessageBox.Show("Зарплата сотрудника должна быть ниже зарплаты директора!", "Так нельзя", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             DialogResult = true;
         }
 
