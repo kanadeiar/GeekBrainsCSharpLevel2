@@ -1,0 +1,32 @@
+﻿<Window x:Class="WpfApp1Company.Windows.EditDepartmentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1Company.Windows"
+        mc:Ignorable="d"
+        Title="Редактирование выделенного отдела" Loaded="EditDepartmentWindow_OnLoaded" Height="200" MinHeight="100" Width="400" 
+        MinWidth="300" WindowStartupLocation="CenterScreen" Background="AliceBlue" Icon="/WpfApp1Company;component/Avatar.ico" ShowInTaskbar="False">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Название отдела:"/>
+            <TextBox x:Name="TextBoxNameDepartment" Grid.Column="1"/>
+        </Grid>
+        <Button Grid.Column="1" Grid.Row="1" x:Name="ButtonCancel" Margin="5" Padding="5" FontSize="14" Click="ButtonCancel_Click">Закрыть</Button>
+    </Grid>
+</Window>

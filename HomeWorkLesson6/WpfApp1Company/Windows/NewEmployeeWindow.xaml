@@ -1,0 +1,56 @@
+﻿<Window x:Class="WpfApp1Company.Windows.NewEmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1Company.Windows"
+        mc:Ignorable="d"
+        Title="Внесение сведений о новом сотруднике" Loaded="NewEmployeeWindow_OnLoaded" Height="400" MinHeight="300" Width="400" 
+        MinWidth="300" WindowStartupLocation="CenterScreen" Background="PowderBlue" Icon="/WpfApp1Company;component/Avatar.ico" ShowInTaskbar="False">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Фамилия:"/>
+            <TextBox Grid.Column="1" Grid.Row="0" x:Name="TextBoxFamEmployee"/>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Имя:"/>
+            <TextBox Grid.Column="1" Grid.Row="1" x:Name="TextBoxNameEmployee"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Возраст:"/>
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="TextBoxAgeEmployee"/>
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Зарплата:"/>
+            <TextBox Grid.Column="1" Grid.Row="3" x:Name="TextBoxSalaryEmployee"/>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Отдел:"/>
+            <ComboBox x:Name="ComboBoxDepartaments" SelectedItem="{Binding Path=Department}" Grid.Column="1" 
+                      Grid.Row="4" FontSize="14" Margin="3" VirtualizingStackPanel.IsVirtualizing="True">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <VirtualizingStackPanel>
+                            <TextBlock Text="{Binding Path=Name}"/>
+                        </VirtualizingStackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+
+        <Button Grid.Column="0" Grid.Row="1" x:Name="ButtonOk" Margin="5" Padding="5" FontSize="14" Background="GreenYellow" Click="ButtonOk_OnClick">Внести</Button>
+        <Button Grid.Column="1" Grid.Row="1" x:Name="ButtonCancel" Margin="5" Padding="5" FontSize="14" Background="Yellow" Click="ButtonCancel_OnClick">Отменить</Button>
+    </Grid>
+</Window>
