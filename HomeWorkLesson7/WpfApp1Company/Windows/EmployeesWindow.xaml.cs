@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 
@@ -37,19 +38,42 @@ namespace WpfApp1Company.Windows
         }
         private void ButtonAdd_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            DataRow newRow = _table.NewRow();
+            EmployeeAddWindow employeeAddWindow = new EmployeeAddWindow(newRow, _connection);
+            employeeAddWindow.ShowDialog();
+            if (employeeAddWindow.DialogResult.HasValue && employeeAddWindow.DialogResult.Value)
+            {
+                _table.Rows.Add(newRow);
+                SqlCommandBuilder _ = new SqlCommandBuilder(_adapter);
+                try
+                {
+                    _adapter.Update(_table);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка добавления нового сотрудника\n" + ex.Message, "Ошибка добавления сотрудника",
+                        MessageBoxButton.OK, MessageBoxImage.Hand);
+                }
+            }
+            RefreshDataEmployees();
         }
-
         private void ButtonEdit_OnClick(object sender, RoutedEventArgs e)
         {
-            
-        }
+            DataRowView selectRow = (DataRowView) DataGridEmployees.SelectedItem;
+            if (selectRow == null)
+                return;
 
+
+            RefreshDataEmployees();
+        }
         private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
         {
+            DataRowView selectRow = (DataRowView) DataGridEmployees.SelectedItem;
+            if (selectRow == null)
+                return;
             
+
+            RefreshDataEmployees();
         }
-
-
     }
 }

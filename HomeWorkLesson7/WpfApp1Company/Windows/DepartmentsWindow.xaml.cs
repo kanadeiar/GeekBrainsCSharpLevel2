@@ -61,9 +61,7 @@ namespace WpfApp1Company.Windows
         {
             DataRowView selectRow = (DataRowView)DataGridDepartments.SelectedItem;
             if (selectRow == null)
-            {
                 return;
-            }
             selectRow.BeginEdit();
             DepartmentEditWindow departmentEditWindow = new DepartmentEditWindow(selectRow.Row);
             departmentEditWindow.ShowDialog();
@@ -91,9 +89,7 @@ namespace WpfApp1Company.Windows
         {
             DataRowView selectRow = (DataRowView)DataGridDepartments.SelectedItem;
             if (selectRow == null)
-            {
                 return;
-            }
             selectRow.Row.Delete();
             SqlCommandBuilder commandBuilder = new SqlCommandBuilder(_adapter);
             try
