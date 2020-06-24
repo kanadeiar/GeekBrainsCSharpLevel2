@@ -44,7 +44,7 @@ namespace WpfApp1Company.Windows
             if (employeeAddWindow.DialogResult.HasValue && employeeAddWindow.DialogResult.Value)
             {
                 _table.Rows.Add(newRow);
-                SqlCommandBuilder _ = new SqlCommandBuilder(_adapter);
+                var _ = new SqlCommandBuilder(_adapter);
                 try
                 {
                     _adapter.Update(_table);
@@ -62,8 +62,27 @@ namespace WpfApp1Company.Windows
             DataRowView selectRow = (DataRowView) DataGridEmployees.SelectedItem;
             if (selectRow == null)
                 return;
-
-
+            selectRow.BeginEdit();
+            EmployeeEditWindow employeeEditWindow = new EmployeeEditWindow(selectRow.Row, _connection);
+            employeeEditWindow.ShowDialog();
+            if (employeeEditWindow.DialogResult.HasValue && employeeEditWindow.DialogResult.Value)
+            {
+                selectRow.EndEdit();
+                var _ = new SqlCommandBuilder(_adapter);
+                try
+                {
+                    _adapter.Update(_table);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка измененеия выбранного сотрудника\n" + ex.Message, "Ошибка измененния сотрудника",
+                        MessageBoxButton.OK, MessageBoxImage.Hand);
+                }
+            }
+            else
+            {
+                selectRow.CancelEdit();
+            }
             RefreshDataEmployees();
         }
         private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
@@ -71,8 +90,17 @@ namespace WpfApp1Company.Windows
             DataRowView selectRow = (DataRowView) DataGridEmployees.SelectedItem;
             if (selectRow == null)
                 return;
-            
-
+            selectRow.Row.Delete();
+            var _ = new SqlCommandBuilder(_adapter);
+            try
+            {
+                _adapter.Update(_table);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка удаления выбранного сотрудника\n" + ex.Message, "Ошибка удаления сотрудника",
+                    MessageBoxButton.OK, MessageBoxImage.Hand);
+            }
             RefreshDataEmployees();
         }
     }

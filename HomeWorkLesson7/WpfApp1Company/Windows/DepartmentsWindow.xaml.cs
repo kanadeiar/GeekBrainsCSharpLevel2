@@ -44,7 +44,7 @@ namespace WpfApp1Company.Windows
             if (departmentAddWindow.DialogResult.HasValue && departmentAddWindow.DialogResult.Value)
             {
                 _table.Rows.Add(newRow);
-                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(_adapter);
+                var _ = new SqlCommandBuilder(_adapter);
                 try
                 {
                     _adapter.Update(_table);
@@ -68,7 +68,7 @@ namespace WpfApp1Company.Windows
             if (departmentEditWindow.DialogResult.HasValue && departmentEditWindow.DialogResult.Value)
             {
                 selectRow.EndEdit();
-                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(_adapter);
+                var _ = new SqlCommandBuilder(_adapter);
                 try
                 {
                     _adapter.Update(_table);
@@ -91,7 +91,7 @@ namespace WpfApp1Company.Windows
             if (selectRow == null)
                 return;
             selectRow.Row.Delete();
-            SqlCommandBuilder commandBuilder = new SqlCommandBuilder(_adapter);
+            var _ = new SqlCommandBuilder(_adapter);
             try
             {
                 _adapter.Update(_table);
