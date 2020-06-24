@@ -1,0 +1,32 @@
+﻿<Window x:Class="WpfApp1Company.Windows.DepartmentAddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1Company.Windows"
+        mc:Ignorable="d"
+        Title="Добавление нового отдела" Height="200" Width="500" Background="#FFD4FF5D" WindowStartupLocation="CenterScreen" Icon="/WpfApp1Company;component/Avatar.ico" Loaded="DepartmentAddWindow_OnLoaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Text="Отдел:"/>
+            <TextBox Grid.Column="1" x:Name="TextBoxDepartment"/>
+        </Grid>
+        <Button x:Name="ButtonAdd" IsDefault="True" Grid.Column="0" Grid.Row="1" Content="Добавить" Click="ButtonAdd_OnClick"/>
+        <Button x:Name="ButtonCancel" IsCancel="True" Grid.Column="1" Grid.Row="1" Background="Yellow" Content="Отмена" Click="ButtonCancel_OnClick"/>
+    </Grid>
+</Window>

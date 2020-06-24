@@ -40,8 +40,34 @@ namespace WpfApp1Company.Windows
             _table = new DataTable();
             _adapter.Fill(_table);
             DataGridDepartments.DataContext = _table.DefaultView;
-
-
+        }
+        private void ButtonAdd_OnClick(object sender, RoutedEventArgs e)
+        {
+            DataRow newRow = _table.NewRow();
+            DepartmentAddWindow departmentAddWindow = new DepartmentAddWindow(newRow);
+            departmentAddWindow.ShowDialog();
+            if (departmentAddWindow.DialogResult.HasValue && departmentAddWindow.DialogResult.Value)
+            {
+                _table.Rows.Add(newRow);
+                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(_adapter);
+                try
+                {
+                    _adapter.Update(_table);
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    throw;
+                }
+            }
+        }
+        private void ButtonEdit_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
+        private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
