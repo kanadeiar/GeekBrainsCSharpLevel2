@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WpfApp1Company.Windows
 {
@@ -31,6 +20,12 @@ namespace WpfApp1Company.Windows
         {
             InitializeComponent();
             _connection = Connection;
+        } 
+        /// <summary> Обновление данных на форме </summary>
+        private void RefreshDataDepartments()
+        {
+            _table.Clear();
+            _adapter.Fill(_table);
         }
         private void DepartmentsWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -56,18 +51,18 @@ namespace WpfApp1Company.Windows
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ошибка добавления нового отдела" + ex.Message, "Ошибка добавления отдела",
+                    MessageBox.Show("Ошибка добавления нового отдела\n" + ex.Message, "Ошибка добавления отдела",
                         MessageBoxButton.OK, MessageBoxImage.Hand);
                 }
             }
+            RefreshDataDepartments();
         }
         private void ButtonEdit_OnClick(object sender, RoutedEventArgs e)
         {
             DataRowView selectRow = (DataRowView)DataGridDepartments.SelectedItem;
             if (selectRow == null)
             {
-                MessageBox.Show("Не выбрана отдел на редактирование", "Ошибка редактирования отдела",
-                    MessageBoxButton.OK, MessageBoxImage.Hand);
+                return;
             }
             selectRow.BeginEdit();
             DepartmentEditWindow departmentEditWindow = new DepartmentEditWindow(selectRow.Row);
@@ -82,7 +77,7 @@ namespace WpfApp1Company.Windows
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ошибка редактирования выбранного отдела" + ex.Message,
+                    MessageBox.Show("Ошибка редактирования выбранного отдела\n" + ex.Message,
                         "Ошибка редактирования отдела", MessageBoxButton.OK, MessageBoxImage.Hand);
                 }
             }
@@ -90,10 +85,29 @@ namespace WpfApp1Company.Windows
             {
                 selectRow.CancelEdit();
             }
+            RefreshDataDepartments();
         }
         private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            DataRowView selectRow = (DataRowView)DataGridDepartments.SelectedItem;
+            if (selectRow == null)
+            {
+                return;
+            }
+            selectRow.Row.Delete();
+            SqlCommandBuilder commandBuilder = new SqlCommandBuilder(_adapter);
+            try
+            {
+                _adapter.Update(_table);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка удаления выбранного отдела\n" + ex.Message,
+                    "Ошибка удаления отдела", MessageBoxButton.OK, MessageBoxImage.Hand);
+            }
+            RefreshDataDepartments();
         }
+
+
     }
 }
