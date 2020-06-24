@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Avatar.ico" />
+    <Resource Include="Readme.txt" />
     <Content Include="SQLQueryCreateSampleDataBase.sql" />
   </ItemGroup>
   <ItemGroup />
