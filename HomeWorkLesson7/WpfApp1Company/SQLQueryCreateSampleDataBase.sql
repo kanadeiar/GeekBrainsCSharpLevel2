@@ -51,4 +51,4 @@ SELECT e.id,e.fam,e.name,e.age,e.salary,d.department FROM Employee e INNER JOIN 
 --Запрос к отделам
 --SELECT id,fam,name,age,salary,department_id FROM Employee;
 --Запрос к сотрудникам
---SELECT id,departament FROM Departament;
+--SELECT id,department FROM Department;

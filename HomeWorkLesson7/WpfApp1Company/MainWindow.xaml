@@ -29,13 +29,16 @@
         </Grid>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="AliceBlue">
             <ToolBar FontSize="14">
-                <Button x:Name="ButtonRefresh" Style="{StaticResource MenuButton}" Content="Обновить сведения" Click="ButtonRefresh_OnClick"/>
+                <Button x:Name="ButtonRefresh" Style="{StaticResource MenuButton}" Content="Обновить сведения" 
+                        Click="ButtonRefresh_OnClick"/>
             </ToolBar>
             <ToolBar FontSize="14">
-                <Button x:Name="ButtonEmployees" Style="{StaticResource MenuButton}" Content="Управление сотрудниками" Click="ButtonEmployees_OnClick"/>
+                <Button x:Name="ButtonDepartments" Style="{StaticResource MenuButton}" Content="Управление отделами" 
+                        Click="ButtonDepartments_OnClick"/>
             </ToolBar>
             <ToolBar FontSize="14">
-                <Button x:Name="ButtonDepartments" Style="{StaticResource MenuButton}" Content="Управление отделами" Click="ButtonDepartments_OnClick"/>
+                <Button x:Name="ButtonEmployees" Style="{StaticResource MenuButton}" Content="Управление сотрудниками" 
+                        Click="ButtonEmployees_OnClick"/>
             </ToolBar>
         </StackPanel>
         <StatusBar DockPanel.Dock="Bottom">
@@ -63,7 +66,8 @@
         </StatusBar>
         <Grid>
             <GroupBox Header="Сведения о всех сотрудниках компании:">
-                <DataGrid ItemsSource="{Binding}" x:Name="DataGridViewEmployees" IsReadOnly="True" Margin="5" FontSize="14" Background="#FFE7FFD2" AutoGenerateColumns="False">
+                <DataGrid ItemsSource="{Binding}" x:Name="DataGridViewEmployees" IsReadOnly="True" Margin="5" FontSize="14" 
+                          Background="#FFE7FFD2" AutoGenerateColumns="False" EnableRowVirtualization="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding fam}" Header="Фамилия" Width="2*"/>
                         <DataGridTextColumn Binding="{Binding name}" Header="Имя" Width="2*"/>

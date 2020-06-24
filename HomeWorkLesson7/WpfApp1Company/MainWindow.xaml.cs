@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Configuration;
+using WpfApp1Company.Windows;
 
 namespace WpfApp1Company
 {
@@ -31,7 +32,7 @@ namespace WpfApp1Company
             InitializeComponent();
         }
         /// <summary> Соединение с БД lesson7 </summary>
-        private static SqlConnection _connection;
+        private SqlConnection _connection;
         /// <summary> Адаптер представления всех сотрудников с отделами </summary>
         private SqlDataAdapter _adapter;
         /// <summary> Таблица всех сотрудников с отделами </summary>
@@ -90,15 +91,17 @@ namespace WpfApp1Company
         {
             RefreshDataEmployees();
         }
+        private void ButtonDepartments_OnClick(object sender, RoutedEventArgs e)
+        {
+            DepartmentsWindow departmentsWindow = new DepartmentsWindow(_connection);
+            departmentsWindow.ShowDialog();
+            RefreshDataEmployees();
+        }
         private void ButtonEmployees_OnClick(object sender, RoutedEventArgs e)
         {
             
             RefreshDataEmployees();
         }
-        private void ButtonDepartments_OnClick(object sender, RoutedEventArgs e)
-        {
-            
-            RefreshDataEmployees();
-        }
+
     }
 }
