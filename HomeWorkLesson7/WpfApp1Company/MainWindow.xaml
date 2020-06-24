@@ -14,13 +14,13 @@
     <DockPanel LastChildFill="True">
         <Menu DockPanel.Dock="Top" FontSize="14">
             <MenuItem Header="База данных">
-
-            </MenuItem>
-            <MenuItem Header="Сотрудники компании">
-
+                <MenuItem Header="Обновить" Click="ButtonRefresh_OnClick"/>
             </MenuItem>
             <MenuItem Header="Отделы компании">
-
+                <MenuItem Header="Управлять" Click="ButtonDepartments_OnClick"/>
+            </MenuItem>
+            <MenuItem Header="Сотрудники компании">
+                <MenuItem Header="Управлять" Click="ButtonEmployees_OnClick"/>
             </MenuItem>
         </Menu>
         <Grid DockPanel.Dock="Top" Background="PaleGreen">

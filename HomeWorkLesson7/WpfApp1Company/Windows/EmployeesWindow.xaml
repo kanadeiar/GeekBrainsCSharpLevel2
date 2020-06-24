@@ -28,8 +28,8 @@
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
-        <Button Grid.Column="0" Grid.Row="1" x:Name="ButtonAdd" Content="Добавить" Click="ButtonAdd_OnClick"/>
+        <Button Grid.Column="0" Grid.Row="1" x:Name="ButtonAdd" IsDefault="True" Content="Добавить" Click="ButtonAdd_OnClick"/>
         <Button Grid.Column="1" Grid.Row="1" x:Name="ButtonEdit" Content="Изменить" Click="ButtonEdit_OnClick"/>
-        <Button Grid.Column="2" Grid.Row="1" x:Name="ButtonDelete" Content="Удалить" Click="ButtonDelete_OnClick"/>
+        <Button Grid.Column="2" Grid.Row="1" x:Name="ButtonDelete" IsCancel="True" Content="Удалить" Click="ButtonDelete_OnClick"/>
     </Grid>
 </Window>
