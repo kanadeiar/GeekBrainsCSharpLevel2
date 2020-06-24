@@ -54,16 +54,42 @@ namespace WpfApp1Company.Windows
                 {
                     _adapter.Update(_table);
                 }
-                catch (Exception exception)
+                catch (Exception ex)
                 {
-                    Console.WriteLine(exception);
-                    throw;
+                    MessageBox.Show("Ошибка добавления нового отдела" + ex.Message, "Ошибка добавления отдела",
+                        MessageBoxButton.OK, MessageBoxImage.Hand);
                 }
             }
         }
         private void ButtonEdit_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            DataRowView selectRow = (DataRowView)DataGridDepartments.SelectedItem;
+            if (selectRow == null)
+            {
+                MessageBox.Show("Не выбрана отдел на редактирование", "Ошибка редактирования отдела",
+                    MessageBoxButton.OK, MessageBoxImage.Hand);
+            }
+            selectRow.BeginEdit();
+            DepartmentEditWindow departmentEditWindow = new DepartmentEditWindow(selectRow.Row);
+            departmentEditWindow.ShowDialog();
+            if (departmentEditWindow.DialogResult.HasValue && departmentEditWindow.DialogResult.Value)
+            {
+                selectRow.EndEdit();
+                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(_adapter);
+                try
+                {
+                    _adapter.Update(_table);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка редактирования выбранного отдела" + ex.Message,
+                        "Ошибка редактирования отдела", MessageBoxButton.OK, MessageBoxImage.Hand);
+                }
+            }
+            else
+            {
+                selectRow.CancelEdit();
+            }
         }
         private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
         {

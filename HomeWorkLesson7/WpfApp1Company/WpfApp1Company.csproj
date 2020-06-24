@@ -62,6 +62,9 @@
     <Compile Include="Windows\DepartmentAddWindow.xaml.cs">
       <DependentUpon>DepartmentAddWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\DepartmentEditWindow.xaml.cs">
+      <DependentUpon>DepartmentEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\DepartmentsWindow.xaml.cs">
       <DependentUpon>DepartmentsWindow.xaml</DependentUpon>
     </Compile>
@@ -78,6 +81,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\DepartmentAddWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DepartmentEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
