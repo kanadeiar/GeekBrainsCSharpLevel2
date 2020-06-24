@@ -1,12 +1,12 @@
-﻿<Window x:Class="WpfApp1Company.Windows.DepartmentsWindow"
+﻿<Window x:Class="WpfApp1Company.Windows.EmployeesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1Company.Windows"
         mc:Ignorable="d"
-        Title="Управление отделами компании" Height="500" Width="400" MinHeight="300" MinWidth="300" 
-        WindowStartupLocation="CenterScreen" Icon="/WpfApp1Company;component/Avatar.ico" Background="#FFFDFFCA" Loaded="DepartmentsWindow_OnLoaded">
+        Title="Управление сотрудниками компании" Height="600" Width="600" MinHeight="300" MinWidth="300" Loaded="EmployeesWindow_OnLoaded"
+        Background="#FFD5C8FF" WindowStartupLocation="CenterScreen" Icon="/WpfApp1Company;component/Avatar.ico" >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -14,14 +14,17 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="7*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Header="Отделы компании">
-            <DataGrid ItemsSource="{Binding}" x:Name="DataGridDepartments" 
+        <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Header="Сотрудники компании">
+            <DataGrid ItemsSource="{Binding}" x:Name="DataGridEmployees" 
                       Margin="5" AutoGenerateColumns="False" EnableRowVirtualization="True" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=department}" Header="Отдел" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Path=fam}" Header="Фамилия" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Path=name}" Header="Имя" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Path=age}" Header="Возраст" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Path=salary}" Header="Зарплата" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>

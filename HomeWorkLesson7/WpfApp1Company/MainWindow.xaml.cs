@@ -99,7 +99,8 @@ namespace WpfApp1Company
         }
         private void ButtonEmployees_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            EmployeesWindow employeesWindow = new EmployeesWindow(_connection);
+            employeesWindow.ShowDialog();
             RefreshDataEmployees();
         }
 

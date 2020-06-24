@@ -16,17 +16,11 @@ namespace WpfApp1Company.Windows
         private SqlDataAdapter _adapter;
         /// <summary> Таблица отделов </summary>
         private DataTable _table;
-        public DepartmentsWindow(SqlConnection Connection)
+        public DepartmentsWindow(SqlConnection connection)
         {
             InitializeComponent();
-            _connection = Connection;
+            _connection = connection;
         } 
-        /// <summary> Обновление данных на форме </summary>
-        private void RefreshDataDepartments()
-        {
-            _table.Clear();
-            _adapter.Fill(_table);
-        }
         private void DepartmentsWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             _adapter = new SqlDataAdapter();
@@ -35,6 +29,12 @@ namespace WpfApp1Company.Windows
             _table = new DataTable();
             _adapter.Fill(_table);
             DataGridDepartments.DataContext = _table.DefaultView;
+        }
+        /// <summary> Обновление данных на форме </summary>
+        private void RefreshDataDepartments()
+        {
+            _table.Clear();
+            _adapter.Fill(_table);
         }
         private void ButtonAdd_OnClick(object sender, RoutedEventArgs e)
         {
