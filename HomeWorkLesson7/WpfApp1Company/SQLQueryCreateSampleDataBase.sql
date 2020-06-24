@@ -1,7 +1,6 @@
 ﻿--Создание таблиц с удаление уже имеющихся
 IF OBJECT_ID('Employee' ) IS NOT NULL DROP TABLE Employee;
 IF OBJECT_ID('Department' ) IS NOT NULL DROP TABLE Department;
-
 CREATE TABLE Department
 (
 id INT IDENTITY(1,1) NOT NULL,
@@ -32,19 +31,23 @@ BEGIN
 END
 DECLARE @j INT = 1;
 DECLARE @id_department INT = 1;
+DECLARE @age INT = 18;
 WHILE @j <= @count_employees
 BEGIN
 	INSERT INTO Employee(fam, name, age, salary, department_id)
-	VALUES (CONCAT(N'Тестов', @i),CONCAT(N'Тест', @i),20,10000.0,@id_department);
+	VALUES (CONCAT(N'Тестов', @j),CONCAT(N'Тест', @j),@age,10000.0,@id_department);
 	IF (@id_department < @count_departments)
 		SET @id_department = @id_department + 1;
 	ELSE
 		SET @id_department = 1;
+	IF (@age < 100)
+		SET @age = @age + 1;
+	ELSE
+		SET @age = 18;
 	SET @j = @j + 1;
 END
 --Сформированные тестовые данные
-SELECT e.id,e.fam,e.name,e.age,e.salary,d.departament FROM Employee e
-INNER JOIN Departament d ON e.department_id=d.id;
+SELECT e.id,e.fam,e.name,e.age,e.salary,d.department FROM Employee e INNER JOIN Department d ON e.department_id=d.id;
 --Запрос к отделам
 --SELECT id,fam,name,age,salary,department_id FROM Employee;
 --Запрос к сотрудникам

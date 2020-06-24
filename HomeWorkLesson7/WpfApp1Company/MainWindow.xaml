@@ -5,13 +5,74 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1Company"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Методичка 7. Продвинутый курс C#. Взаимодействие с базой данных" Height="500" MinHeight="300" Width="800"
+        MinWidth="600" WindowStartupLocation="CenterScreen" Background="LightCyan" ResizeMode="CanResizeWithGrip" 
+        Icon="Avatar.ico" Loaded="MainWindow_OnLoaded">
     <Window.Resources>
 
     </Window.Resources>
-    <Grid>
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top" FontSize="14">
+            <MenuItem Header="База данных">
 
+            </MenuItem>
+            <MenuItem Header="Сотрудники компании">
 
-        
-    </Grid>
+            </MenuItem>
+            <MenuItem Header="Отделы компании">
+
+            </MenuItem>
+        </Menu>
+        <Grid DockPanel.Dock="Top" Background="PaleGreen">
+            <TextBlock Text="{StaticResource NameApplication}" Height="30" FontSize="18" HorizontalAlignment="Center" 
+                       Margin="5" VerticalAlignment="Center"/>
+        </Grid>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="AliceBlue">
+            <ToolBar FontSize="14">
+                <Button x:Name="ButtonRefresh" Style="{StaticResource MenuButton}" Content="Обновить сведения" Click="ButtonRefresh_OnClick"/>
+            </ToolBar>
+            <ToolBar FontSize="14">
+                <Button x:Name="ButtonEmployees" Style="{StaticResource MenuButton}" Content="Управление сотрудниками" Click="ButtonEmployees_OnClick"/>
+            </ToolBar>
+            <ToolBar FontSize="14">
+                <Button x:Name="ButtonDepartments" Style="{StaticResource MenuButton}" Content="Управление отделами" Click="ButtonDepartments_OnClick"/>
+            </ToolBar>
+        </StackPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock x:Name="TextSource" Text="Источник"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock x:Name="TextStatus" Text="Состояние"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right" Margin="0,0,20,0">
+                <ProgressBar x:Name="ProgressBarTest" Width="200" HorizontalAlignment="Right" Height="14" Minimum="0" Maximum="100">
+                    <ProgressBar.Triggers>
+                        <EventTrigger RoutedEvent="TextBlock.Loaded">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard TargetProperty="Value">
+                                        <DoubleAnimation From="0" To="100" Duration="0:0:10" RepeatBehavior="Forever"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </ProgressBar.Triggers>
+                </ProgressBar>
+            </StatusBarItem>
+        </StatusBar>
+        <Grid>
+            <GroupBox Header="Сведения о всех сотрудниках компании:">
+                <DataGrid ItemsSource="{Binding}" x:Name="DataGridViewEmployees" IsReadOnly="True" Margin="5" FontSize="14" Background="#FFE7FFD2" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding fam}" Header="Фамилия" Width="2*"/>
+                        <DataGridTextColumn Binding="{Binding name}" Header="Имя" Width="2*"/>
+                        <DataGridTextColumn Binding="{Binding Path=age, StringFormat=' {0} лет'}" Header="Возраст" Width="*"/>
+                        <DataGridTextColumn Binding="{Binding Path=salary, StringFormat=' {0} руб.'}" Header="Зарплата" Width="*"/>
+                        <DataGridTextColumn Binding="{Binding department}" Header="Отдел" Width="2*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+        </Grid>
+    </DockPanel>
 </Window>
