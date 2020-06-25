@@ -1,0 +1,47 @@
+﻿<Window x:Class="WpfApp1Company.Windows.EmployeeAddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1Company.Windows"
+        mc:Ignorable="d"
+        Title="Добавление нового сотрудника" Height="400" Width="500" Background="#FFC1FFA4" 
+        WindowStartupLocation="CenterScreen" Icon="/WpfApp1Company;component/Avatar.ico" Loaded="EmployeeAddWindow_OnLoaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Text="Фамилия:"/>
+            <TextBox Grid.Column="1" x:Name="TextBoxFam"/>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Имя:"/>
+            <TextBox Grid.Column="1" Grid.Row="1" x:Name="TextBoxName"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Возраст:"/>
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="TextBoxAge"/>
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Зарплата:"/>
+            <TextBox Grid.Column="1" Grid.Row="3" x:Name="TextBoxSalary"/>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Отдел:"/>
+            <ComboBox Grid.Column="1" Grid.Row="4" ItemsSource="{Binding}" x:Name="ComboBoxDepartament" Margin="3"/>
+        </Grid>
+        <Button x:Name="ButtonAdd" IsDefault="True" Grid.Column="0" Grid.Row="1" Content="Добавить" Click="ButtonAdd_OnClick"/>
+        <Button x:Name="ButtonCancel" IsCancel="True" Grid.Column="1" Grid.Row="1" Background="Yellow" Content="Отмена" Click="ButtonCancel_OnClick"/>
+    </Grid>
+</Window>
