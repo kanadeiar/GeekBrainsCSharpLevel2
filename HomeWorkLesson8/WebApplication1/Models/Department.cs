@@ -25,15 +25,15 @@ namespace WebApplication1.Models
             _adapter.SelectCommand = command;
         }
         /// <summary> Все отделы </summary>
-        public static IList<Department> Departments => GetTable();
+        public static IList<Department> Departments => GetData();
         /// <summary> Один отдел </summary>
         /// <param name="id">идентификатор</param>
         /// <returns>отдел</returns>
         public static Department OneDepartment(int id)
         {
-            return GetTable().FirstOrDefault(d => d.Id == id);
+            return GetData().FirstOrDefault(d => d.Id == id);
         }
-        private static IList<Department> GetTable()
+        private static IList<Department> GetData()
         {
             _table.Clear();
             _adapter.Fill(_table);

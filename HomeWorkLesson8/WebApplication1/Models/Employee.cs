@@ -34,15 +34,15 @@ namespace WebApplication1.Models
             _adapter.SelectCommand = command;
         }
         /// <summary> Все сотрудники </summary>
-        public static IList<Employee> Employees => GetTable();
+        public static IList<Employee> Employees => GetData();
         /// <summary> Один сотрудник </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns>Сотрудник</returns>
         public static Employee OneEmployee(int id)
         {
-            return GetTable().FirstOrDefault(e => e.Id == id);
+            return GetData().FirstOrDefault(e => e.Id == id);
         }
-        private static IList<Employee> GetTable()
+        private static IList<Employee> GetData()
         {
             _table.Clear();
             _adapter.Fill(_table);
