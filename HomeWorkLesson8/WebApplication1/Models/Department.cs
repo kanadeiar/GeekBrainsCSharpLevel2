@@ -10,10 +10,12 @@ namespace WebApplication1.Models
     /// <summary> Отдел </summary>
     public class Department
     {
+        #region Поля модели
         /// <summary> Идентификатор </summary>
         public int Id { get; set; }
         /// <summary> Название </summary>
         public string Dep { get; set; }
+        #endregion
         private static SqlDataAdapter _adapter = new SqlDataAdapter();
         private static DataTable _table = new DataTable();
         static Department()
