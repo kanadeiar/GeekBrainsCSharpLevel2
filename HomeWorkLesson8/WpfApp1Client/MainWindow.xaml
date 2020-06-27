@@ -27,20 +27,13 @@
         </Grid>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="AliceBlue">
             <ToolBar FontSize="14">
-                <Button x:Name="ButtonRefresh" Content="Обновить содержимое" 
-                        />
+                <Button x:Name="ButtonRefresh" Content="Обновить содержимое" Click="ButtonRefresh_OnClick" />
             </ToolBar>
             <ToolBar FontSize="14">
-                <Button x:Name="ButtonGroupEmployees" Content="Сгруппированные сотрудники" 
-                />
+                <Button x:Name="ButtonDepartments" Content="Отделы" Click="ButtonDepartments_OnClick"/>
             </ToolBar>
             <ToolBar FontSize="14">
-                <Button x:Name="ButtonDepartments" Content="Отделы" 
-                        Click="ButtonDepartments_OnClick"/>
-            </ToolBar>
-            <ToolBar FontSize="14">
-                <Button x:Name="ButtonEmployees" Content="Сотрудники" 
-                        />
+                <Button x:Name="ButtonEmployees" Content="Сотрудники" Click="ButtonEmployees_OnClick"/>
             </ToolBar>
         </StackPanel>
         <StatusBar DockPanel.Dock="Bottom">
@@ -78,7 +71,6 @@
                             <GridViewColumn Header="Отдел" DisplayMemberBinding="{Binding Dep}" Width="150"/>
                         </GridView>
                     </ListView.View>
-
                 </ListView>
             </GroupBox>
         </Grid>

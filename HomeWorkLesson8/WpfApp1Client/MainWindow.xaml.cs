@@ -76,5 +76,17 @@ namespace WpfApp1Client
             DepartmentsWindow departmentsWindow = new DepartmentsWindow(_client, TextStatus);
             departmentsWindow.ShowDialog();
         }
+        private void ButtonEmployees_OnClick(object sender, RoutedEventArgs e)
+        {
+            EmployeeWindow employeeWindow = new EmployeeWindow(_client, TextStatus);
+            employeeWindow.ShowDialog();
+        }
+        private async void ButtonRefresh_OnClick(object sender, RoutedEventArgs e)
+        {
+            TextStatus.Text = "Состояние: Получение данных с сервиса";
+            var employeeViews = await GetEmployeesViewAsync(_client.BaseAddress + "api/employeeview");
+            ListViewEmployeesDeps.ItemsSource = employeeViews;
+            TextStatus.Text = "Состояние: Готов";
+        }
     }
 }
