@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1Client.Windows"
         mc:Ignorable="d"
-        Title="Все сотрудники компании" Height="500" Width="600" Loaded="EmployeeWindow_OnLoaded"
+        Title="Все сотрудники компании" Height="600" Width="600" Loaded="EmployeeWindow_OnLoaded"
         WindowStartupLocation="CenterScreen" Background="LightGoldenrodYellow" ShowInTaskbar="False" Icon="/WpfApp1Client;component/Avatar.ico">
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Bottom">
@@ -15,12 +15,34 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="1" Content="Закрыть" Margin="5" FontSize="14" x:Name="ButtonExit"/>
         </Grid>
+        <GroupBox DockPanel.Dock="Bottom">
+            <GroupBox DataContext="{Binding ElementName=DataGridEmployees, Path=SelectedValue}" Header="Сведения о сотруднике:" FontSize="14">
+                <WrapPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="Фамилия:"/>
+                        <TextBox Text="{Binding Path=Fam}" Width="200" IsReadOnly="True"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="Имя:"/>
+                        <TextBox Text="{Binding Path=Name}" Width="200" IsReadOnly="True"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="Возраст:"/>
+                        <TextBox Text="{Binding Path=Age}" Width="200" IsReadOnly="True"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="Зарплата:"/>
+                        <TextBox Text="{Binding Path=Salary}" Width="200" IsReadOnly="True"/>
+                    </StackPanel>
+                </WrapPanel>
+            </GroupBox>
+        </GroupBox>
         <GroupBox DockPanel.Dock="Top" Header="Все отделы:" FontSize="14">
             <DataGrid x:Name="DataGridEmployees" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Fam}" Width="150"/>
                     <DataGridTextColumn Header="Имя" Binding="{Binding Path=Fam}" Width="150"/>
-                    <DataGridTextColumn Header="Возраст" Binding="{Binding Path=Age}" Width="150"/>
+                    <DataGridTextColumn Header="Возраст" Binding="{Binding Path=Age}" Width="100"/>
                     <DataGridTextColumn Header="Зарплата" Binding="{Binding Path=Salary}" Width="150"/>
                 </DataGrid.Columns>
             </DataGrid>
