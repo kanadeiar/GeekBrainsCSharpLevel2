@@ -36,7 +36,7 @@
             </ToolBar>
             <ToolBar FontSize="14">
                 <Button x:Name="ButtonDepartments" Content="Отделы" 
-                        />
+                        Click="ButtonDepartments_OnClick"/>
             </ToolBar>
             <ToolBar FontSize="14">
                 <Button x:Name="ButtonEmployees" Content="Сотрудники" 

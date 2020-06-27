@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1Client.Models;
+using WpfApp1Client.Windows;
 
 namespace WpfApp1Client
 {
@@ -51,7 +52,8 @@ namespace WpfApp1Client
         private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             TextStatus.Text = "Состояние: Получение данных с сервиса";
-            ListViewEmployeesDeps.ItemsSource = await GetEmployeesViewAsync(_client.BaseAddress + "api/employeeview");
+            var employeeViews = await GetEmployeesViewAsync(_client.BaseAddress + "api/employeeview");
+            ListViewEmployeesDeps.ItemsSource = employeeViews;
             TextStatus.Text = "Состояние: Готов";
         }
         static async Task<IEnumerable<EmployeeView>> GetEmployeesViewAsync(string path)
@@ -69,6 +71,10 @@ namespace WpfApp1Client
             }
             return employeeViews;
         }
-
+        private void ButtonDepartments_OnClick(object sender, RoutedEventArgs e)
+        {
+            DepartmentsWindow departmentsWindow = new DepartmentsWindow(_client, TextStatus);
+            departmentsWindow.ShowDialog();
+        }
     }
 }
