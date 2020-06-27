@@ -5,22 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1Client.Windows"
         mc:Ignorable="d"
-        Title="Все отделы компании" Height="500" Width="400" Loaded="DepartmentsWindow_OnLoaded" 
+        Title="Все отделы компании" Height="500" Width="500" Loaded="DepartmentsWindow_OnLoaded" 
         WindowStartupLocation="CenterScreen" Background="LightGoldenrodYellow" ShowInTaskbar="False" Icon="/WpfApp1Client;component/Avatar.ico">
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="1" Content="Закрыть" Margin="5" FontSize="14" x:Name="ButtonExit"/>
         </Grid>
         <GroupBox DockPanel.Dock="Top" Header="Все отделы:" FontSize="14">
-            <DataGrid x:Name="DataGridDepartments" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название" Binding="{Binding Path=Dep}" Width="200"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="DataGridDepartments" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название" Binding="{Binding Path=Dep}" Width="200"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <GroupBox Grid.Column="2" Header="Сведения о отделе:">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Название:"/>
+                        <TextBox Text="{Binding ElementName=DataGridDepartments, Path=SelectedValue.Dep}" IsReadOnly="True"/>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
         </GroupBox>
     </DockPanel>
 </Window>
